@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TabBarController-ID">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Tab Bar Controller-->
+        <scene sceneID="TabBar-Scene-ID">
+            <objects>
+                <tabBarController id="TabBarController-ID" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="TabBar-ID">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="ExploreNav-ID" kind="relationship" relationship="viewControllers" id="TabToExplore-ID"/>
+                        <segue destination="BuilderNav-ID" kind="relationship" relationship="viewControllers" id="TabToBuilder-ID"/>
+                        <segue destination="HistoryNav-ID" kind="relationship" relationship="viewControllers" id="TabToHistory-ID"/>
+                        <segue destination="MyPageNav-ID" kind="relationship" relationship="viewControllers" id="TabToMyPage-ID"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TabBar-FR-ID" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="0.0" y="0.0"/>
+        </scene>
+        <!--탐색-->
+        <scene sceneID="ExploreNav-Scene-ID">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ExploreNav-ID" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="탐색" image="square.grid.2x2" catalog="system" id="ExploreTabItem-ID"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="ExploreNavBar-ID">
+                        <rect key="frame" x="0.0" y="117.99999999999999" width="393" height="106.66666666666664"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ExploreVC-ID" kind="relationship" relationship="rootViewController" id="ExploreNavToVC-ID"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ExploreNav-FR-ID" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-880" y="500"/>
+        </scene>
+        <!--탐색-->
+        <scene sceneID="ExploreVC-Scene-ID">
+            <objects>
+                <viewController id="ExploreVC-ID" customClass="ExploreViewController" customModule="joribee" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ExploreView-ID">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="ExploreSafeArea-ID"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="탐색" id="ExploreNavItem-ID"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ExploreVC-FR-ID" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-880" y="1100"/>
+        </scene>
+        <!--빌더-->
+        <scene sceneID="BuilderNav-Scene-ID">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="BuilderNav-ID" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="빌더" image="hammer" catalog="system" id="BuilderTabItem-ID"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="BuilderNavBar-ID">
+                        <rect key="frame" x="0.0" y="117.99999999999999" width="393" height="106.66666666666664"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BuilderVC-ID" kind="relationship" relationship="rootViewController" id="BuilderNavToVC-ID"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BuilderNav-FR-ID" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="140" y="500"/>
+        </scene>
+        <!--빌더-->
+        <scene sceneID="BuilderVC-Scene-ID">
+            <objects>
+                <viewController id="BuilderVC-ID" customClass="BuilderViewController" customModule="joribee" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="BuilderView-ID">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="BuilderSafeArea-ID"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="빌더" id="BuilderNavItem-ID"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BuilderVC-FR-ID" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="140" y="1100"/>
+        </scene>
+        <!--기록-->
+        <scene sceneID="HistoryNav-Scene-ID">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="HistoryNav-ID" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="기록" image="clock" catalog="system" id="HistoryTabItem-ID"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="HistoryNavBar-ID">
+                        <rect key="frame" x="0.0" y="117.99999999999999" width="393" height="106.66666666666664"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="HistoryVC-ID" kind="relationship" relationship="rootViewController" id="HistoryNavToVC-ID"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HistoryNav-FR-ID" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1160" y="500"/>
+        </scene>
+        <!--기록-->
+        <scene sceneID="HistoryVC-Scene-ID">
+            <objects>
+                <viewController id="HistoryVC-ID" customClass="HistoryViewController" customModule="joribee" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HistoryView-ID">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="HistorySafeArea-ID"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="기록" id="HistoryNavItem-ID"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HistoryVC-FR-ID" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1160" y="1100"/>
+        </scene>
+        <!--마이-->
+        <scene sceneID="MyPageNav-Scene-ID">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="MyPageNav-ID" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="마이" image="person" catalog="system" id="MyPageTabItem-ID"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="MyPageNavBar-ID">
+                        <rect key="frame" x="0.0" y="117.99999999999999" width="393" height="106.66666666666664"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="MyPageVC-ID" kind="relationship" relationship="rootViewController" id="MyPageNavToVC-ID"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MyPageNav-FR-ID" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2180" y="500"/>
+        </scene>
+        <!--마이-->
+        <scene sceneID="MyPageVC-Scene-ID">
+            <objects>
+                <viewController id="MyPageVC-ID" customClass="MyPageViewController" customModule="joribee" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="MyPageView-ID">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="MyPageSafeArea-ID"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="마이" id="MyPageNavItem-ID"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MyPageVC-FR-ID" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2180" y="1100"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="clock" catalog="system" width="128" height="123"/>
+        <image name="hammer" catalog="system" width="128" height="117"/>
+        <image name="person" catalog="system" width="128" height="121"/>
+        <image name="square.grid.2x2" catalog="system" width="128" height="114"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
