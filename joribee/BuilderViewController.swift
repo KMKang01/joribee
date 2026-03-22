@@ -24,6 +24,8 @@ class BuilderViewController: UIViewController {
     @IBOutlet weak var compatibilityLabel: UILabel!
     // 다음 단계 버튼 (Storyboard 연결)
     @IBOutlet weak var nextButton: UIButton!
+    // 이전 단계 바 버튼 (Storyboard 연결)
+    @IBOutlet weak var previousButton: UIBarButtonItem!
 
     // 빌더 전체 상태를 관리하는 객체
     private let builderState = BuilderState()
@@ -36,7 +38,6 @@ class BuilderViewController: UIViewController {
         super.viewDidLoad()
         title = "빌더"
         setupTableView()
-        setupNextButton()
         updateUI()
     }
 
@@ -45,13 +46,6 @@ class BuilderViewController: UIViewController {
         optionsTableView.delegate = self
         optionsTableView.dataSource = self
         optionsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "OptionCell")
-    }
-
-    // 다음 단계 버튼의 둥근 모서리와 액션을 설정하는 함수
-    private func setupNextButton() {
-        nextButton.layer.cornerRadius = 12
-        nextButton.clipsToBounds = true
-        nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
     }
 
     // 현재 단계에 맞게 전체 UI를 갱신하는 함수
@@ -67,8 +61,7 @@ class BuilderViewController: UIViewController {
         updateNextButtonState()
         updateCompatibilityLabel()
 
-        navigationItem.leftBarButtonItem = step == .purpose ? nil :
-            UIBarButtonItem(title: "이전", style: .plain, target: self, action: #selector(previousButtonTapped))
+        navigationItem.leftBarButtonItem = step == .purpose ? nil : previousButton
     }
 
     // 현재 단계에 맞는 옵션 목록을 로드하는 함수
@@ -175,8 +168,8 @@ class BuilderViewController: UIViewController {
         }
     }
 
-    // 다음 단계 버튼 탭 시 호출되는 함수
-    @objc private func nextButtonTapped() {
+    // 다음 단계 버튼 탭 시 호출되는 함수 (Storyboard 연결)
+    @IBAction func nextButtonTapped(_ sender: UIButton) {
         if builderState.currentStep == .complete {
             saveBuild()
             return
@@ -186,8 +179,8 @@ class BuilderViewController: UIViewController {
         }
     }
 
-    // 이전 단계 버튼 탭 시 호출되는 함수
-    @objc private func previousButtonTapped() {
+    // 이전 단계 버튼 탭 시 호출되는 함수 (Storyboard 연결)
+    @IBAction func previousButtonTapped(_ sender: UIBarButtonItem) {
         if builderState.moveToPreviousStep() {
             updateUI()
         }
