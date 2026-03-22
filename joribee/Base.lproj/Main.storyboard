@@ -273,10 +273,108 @@
                     <view key="view" contentMode="scaleToFill" id="BuilderView-ID">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="BldProgress-ID">
+                                <rect key="frame" x="16" y="103" width="361" height="4"/>
+                                <color key="progressTintColor" systemColor="systemBlueColor"/>
+                            </progressView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="용도와 예산" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BldStepTitle-ID">
+                                <rect key="frame" x="16" y="119" width="361" height="28"/>
+                                <fontDescription key="fontDescription" type="system" weight="bold" pointSize="24"/>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이 컴퓨터로 무엇을 할 것인지 정하세요." numberOfLines="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BldGuide-ID">
+                                <rect key="frame" x="16" y="155" width="361" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" systemColor="secondaryLabelColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="BldTableView-ID">
+                                <rect key="frame" x="0" y="183" width="393" height="569"/>
+                                <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BldBottomBar-ID">
+                                <rect key="frame" x="0" y="752" width="393" height="100"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BldSeparator-ID">
+                                        <rect key="frame" x="0" y="0" width="393" height="1"/>
+                                        <color key="backgroundColor" systemColor="systemGray4Color"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="Bld-SepH-ID"/>
+                                        </constraints>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0원" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BldTotalPrice-ID">
+                                        <rect key="frame" x="16" y="9" width="100" height="22"/>
+                                        <fontDescription key="fontDescription" type="system" weight="bold" pointSize="18"/>
+                                        <color key="textColor" systemColor="systemBlueColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="호환성 확인 중" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BldCompatLabel-ID">
+                                        <rect key="frame" x="16" y="35" width="100" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
+                                        <color key="textColor" systemColor="systemGreenColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BldNextBtn-ID">
+                                        <rect key="frame" x="240" y="9" width="137" height="44"/>
+                                        <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="Bld-BtnH-ID"/>
+                                            <constraint firstAttribute="width" constant="137" id="Bld-BtnW-ID"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="bold" pointSize="16"/>
+                                        <state key="normal" title="다음 단계">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="BldSeparator-ID" firstAttribute="top" secondItem="BldBottomBar-ID" secondAttribute="top" id="Bld-B1-ID"/>
+                                    <constraint firstItem="BldSeparator-ID" firstAttribute="leading" secondItem="BldBottomBar-ID" secondAttribute="leading" id="Bld-B2-ID"/>
+                                    <constraint firstItem="BldBottomBar-ID" firstAttribute="trailing" secondItem="BldSeparator-ID" secondAttribute="trailing" id="Bld-B3-ID"/>
+                                    <constraint firstItem="BldTotalPrice-ID" firstAttribute="top" secondItem="BldSeparator-ID" secondAttribute="bottom" constant="8" id="Bld-B4-ID"/>
+                                    <constraint firstItem="BldTotalPrice-ID" firstAttribute="leading" secondItem="BldBottomBar-ID" secondAttribute="leading" constant="16" id="Bld-B5-ID"/>
+                                    <constraint firstItem="BldCompatLabel-ID" firstAttribute="top" secondItem="BldTotalPrice-ID" secondAttribute="bottom" constant="4" id="Bld-B6-ID"/>
+                                    <constraint firstItem="BldCompatLabel-ID" firstAttribute="leading" secondItem="BldBottomBar-ID" secondAttribute="leading" constant="16" id="Bld-B7-ID"/>
+                                    <constraint firstItem="BldNextBtn-ID" firstAttribute="centerY" secondItem="BldBottomBar-ID" secondAttribute="centerY" id="Bld-B8-ID"/>
+                                    <constraint firstItem="BldBottomBar-ID" firstAttribute="trailing" secondItem="BldNextBtn-ID" secondAttribute="trailing" constant="16" id="Bld-B9-ID"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="BuilderSafeArea-ID"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="BldProgress-ID" firstAttribute="top" secondItem="BuilderSafeArea-ID" secondAttribute="top" constant="8" id="Bld-C1-ID"/>
+                            <constraint firstItem="BldProgress-ID" firstAttribute="leading" secondItem="BuilderView-ID" secondAttribute="leading" constant="16" id="Bld-C2-ID"/>
+                            <constraint firstItem="BuilderView-ID" firstAttribute="trailing" secondItem="BldProgress-ID" secondAttribute="trailing" constant="16" id="Bld-C3-ID"/>
+                            <constraint firstItem="BldStepTitle-ID" firstAttribute="top" secondItem="BldProgress-ID" secondAttribute="bottom" constant="12" id="Bld-C4-ID"/>
+                            <constraint firstItem="BldStepTitle-ID" firstAttribute="leading" secondItem="BuilderView-ID" secondAttribute="leading" constant="16" id="Bld-C5-ID"/>
+                            <constraint firstItem="BuilderView-ID" firstAttribute="trailing" secondItem="BldStepTitle-ID" secondAttribute="trailing" constant="16" id="Bld-C6-ID"/>
+                            <constraint firstItem="BldGuide-ID" firstAttribute="top" secondItem="BldStepTitle-ID" secondAttribute="bottom" constant="6" id="Bld-C7-ID"/>
+                            <constraint firstItem="BldGuide-ID" firstAttribute="leading" secondItem="BuilderView-ID" secondAttribute="leading" constant="16" id="Bld-C8-ID"/>
+                            <constraint firstItem="BuilderView-ID" firstAttribute="trailing" secondItem="BldGuide-ID" secondAttribute="trailing" constant="16" id="Bld-C9-ID"/>
+                            <constraint firstItem="BldTableView-ID" firstAttribute="top" secondItem="BldGuide-ID" secondAttribute="bottom" constant="8" id="Bld-C10-ID"/>
+                            <constraint firstItem="BldTableView-ID" firstAttribute="leading" secondItem="BuilderView-ID" secondAttribute="leading" id="Bld-C11-ID"/>
+                            <constraint firstItem="BuilderView-ID" firstAttribute="trailing" secondItem="BldTableView-ID" secondAttribute="trailing" id="Bld-C12-ID"/>
+                            <constraint firstItem="BldTableView-ID" firstAttribute="bottom" secondItem="BldBottomBar-ID" secondAttribute="top" id="Bld-C13-ID"/>
+                            <constraint firstItem="BldBottomBar-ID" firstAttribute="leading" secondItem="BuilderView-ID" secondAttribute="leading" id="Bld-C14-ID"/>
+                            <constraint firstItem="BuilderView-ID" firstAttribute="trailing" secondItem="BldBottomBar-ID" secondAttribute="trailing" id="Bld-C15-ID"/>
+                            <constraint firstItem="BldBottomBar-ID" firstAttribute="bottom" secondItem="BuilderSafeArea-ID" secondAttribute="bottom" id="Bld-C16-ID"/>
+                            <constraint firstItem="BldBottomBar-ID" firstAttribute="height" constant="70" id="Bld-C17-ID"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="빌더" id="BuilderNavItem-ID"/>
+                    <connections>
+                        <outlet property="progressView" destination="BldProgress-ID" id="BldO-Prog-ID"/>
+                        <outlet property="stepTitleLabel" destination="BldStepTitle-ID" id="BldO-Title-ID"/>
+                        <outlet property="guideLabel" destination="BldGuide-ID" id="BldO-Guide-ID"/>
+                        <outlet property="optionsTableView" destination="BldTableView-ID" id="BldO-Table-ID"/>
+                        <outlet property="totalPriceLabel" destination="BldTotalPrice-ID" id="BldO-Price-ID"/>
+                        <outlet property="compatibilityLabel" destination="BldCompatLabel-ID" id="BldO-Compat-ID"/>
+                        <outlet property="nextButton" destination="BldNextBtn-ID" id="BldO-Next-ID"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BuilderVC-FR-ID" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -376,6 +474,12 @@
         </systemColor>
         <systemColor name="systemGray5Color">
             <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.78039215686274510" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGroupedBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
