@@ -30,17 +30,7 @@ class BuildDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupButtonStyle()
         configureData()
-        importButton.addTarget(self, action: #selector(importButtonTapped), for: .touchUpInside)
-    }
-
-    // 버튼의 둥근 모서리 스타일을 설정하는 함수
-    private func setupButtonStyle() {
-        importButton.layer.cornerRadius = 12
-        importButton.clipsToBounds = true
-        categoryLabel.layer.cornerRadius = 10
-        categoryLabel.clipsToBounds = true
     }
 
     // Build 데이터를 각 UI 요소에 바인딩하는 함수
@@ -114,8 +104,8 @@ class BuildDetailViewController: UIViewController {
         return container
     }
 
-    // "내 빌더로 가져오기" 버튼 탭 시 호출되는 함수
-    @objc private func importButtonTapped() {
+    // "내 빌더로 가져오기" 버튼 탭 시 호출되는 함수 (Storyboard 연결)
+    @IBAction func importButtonTapped(_ sender: UIButton) {
         let alert = UIAlertController(
             title: "빌더로 가져오기",
             message: "이 견적을 빌더 탭으로 가져오시겠습니까?",
