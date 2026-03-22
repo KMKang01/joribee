@@ -14,25 +14,102 @@ class BuildCardCell: UICollectionViewCell {
     static let identifier = "BuildCardCell"
 
     // 대표 이미지를 표시하는 이미지뷰
-    @IBOutlet weak var thumbnailImageView: UIImageView!
-    // 빌드 카테고리 태그를 표시하는 레이블
-    @IBOutlet weak var categoryLabel: UILabel!
-    // 견적 제목을 표시하는 레이블
-    @IBOutlet weak var titleLabel: UILabel!
-    // CPU 이름을 표시하는 레이블
-    @IBOutlet weak var cpuLabel: UILabel!
-    // GPU 이름을 표시하는 레이블
-    @IBOutlet weak var gpuLabel: UILabel!
-    // 총 가격을 표시하는 레이블
-    @IBOutlet weak var priceLabel: UILabel!
-    // 좋아요 아이콘을 표시하는 이미지뷰
-    @IBOutlet weak var heartImageView: UIImageView!
-    // 좋아요 수를 표시하는 레이블
-    @IBOutlet weak var likeCountLabel: UILabel!
+    private let thumbnailImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.backgroundColor = .systemGray5
+        imageView.layer.cornerRadius = 12
+        imageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
 
-    // XIB에서 로드 후 셀의 그림자 및 둥근 모서리 스타일을 설정하는 함수
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    // 빌드 카테고리 태그를 표시하는 레이블
+    private let categoryLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 12, weight: .medium)
+        label.textColor = .white
+        label.backgroundColor = .systemBlue
+        label.textAlignment = .center
+        label.layer.cornerRadius = 8
+        label.clipsToBounds = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    // 견적 제목을 표시하는 레이블
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 16, weight: .bold)
+        label.textColor = .label
+        label.numberOfLines = 1
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    // CPU 이름을 표시하는 레이블
+    private let cpuLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 13)
+        label.textColor = .secondaryLabel
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    // GPU 이름을 표시하는 레이블
+    private let gpuLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 13)
+        label.textColor = .secondaryLabel
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    // 총 가격을 표시하는 레이블
+    private let priceLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 18, weight: .heavy)
+        label.textColor = .systemBlue
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    // 좋아요 아이콘을 표시하는 이미지뷰
+    private let heartImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "heart.fill")
+        imageView.tintColor = .systemRed
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+
+    // 좋아요 수를 표시하는 레이블
+    private let likeCountLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 13, weight: .medium)
+        label.textColor = .secondaryLabel
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupCellStyle()
+        setupSubviews()
+        setupConstraints()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setupCellStyle()
+        setupSubviews()
+        setupConstraints()
+    }
+
+    // 셀의 그림자 및 둥근 모서리 스타일을 설정하는 함수
+    private func setupCellStyle() {
         contentView.backgroundColor = .systemBackground
         contentView.layer.cornerRadius = 12
         contentView.clipsToBounds = true
@@ -42,12 +119,57 @@ class BuildCardCell: UICollectionViewCell {
         layer.shadowOffset = CGSize(width: 0, height: 2)
         layer.shadowRadius = 8
         layer.masksToBounds = false
+    }
 
-        thumbnailImageView.layer.cornerRadius = 12
-        thumbnailImageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+    // 서브뷰를 contentView에 추가하는 함수
+    private func setupSubviews() {
+        contentView.addSubview(thumbnailImageView)
+        contentView.addSubview(categoryLabel)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(cpuLabel)
+        contentView.addSubview(gpuLabel)
+        contentView.addSubview(priceLabel)
+        contentView.addSubview(heartImageView)
+        contentView.addSubview(likeCountLabel)
+    }
 
-        categoryLabel.layer.cornerRadius = 8
-        categoryLabel.clipsToBounds = true
+    // 오토레이아웃 제약 조건을 설정하는 함수
+    private func setupConstraints() {
+        NSLayoutConstraint.activate([
+            thumbnailImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            thumbnailImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            thumbnailImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            thumbnailImageView.heightAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.55),
+
+            categoryLabel.topAnchor.constraint(equalTo: thumbnailImageView.bottomAnchor, constant: 12),
+            categoryLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
+            categoryLabel.heightAnchor.constraint(equalToConstant: 22),
+
+            titleLabel.topAnchor.constraint(equalTo: categoryLabel.bottomAnchor, constant: 8),
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
+
+            cpuLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 6),
+            cpuLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
+            cpuLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
+
+            gpuLabel.topAnchor.constraint(equalTo: cpuLabel.bottomAnchor, constant: 2),
+            gpuLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
+            gpuLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
+
+            priceLabel.topAnchor.constraint(equalTo: gpuLabel.bottomAnchor, constant: 10),
+            priceLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
+
+            heartImageView.centerYAnchor.constraint(equalTo: priceLabel.centerYAnchor),
+            heartImageView.widthAnchor.constraint(equalToConstant: 16),
+            heartImageView.heightAnchor.constraint(equalToConstant: 16),
+
+            likeCountLabel.leadingAnchor.constraint(equalTo: heartImageView.trailingAnchor, constant: 4),
+            likeCountLabel.centerYAnchor.constraint(equalTo: priceLabel.centerYAnchor),
+            likeCountLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
+
+            heartImageView.trailingAnchor.constraint(equalTo: likeCountLabel.leadingAnchor, constant: -4),
+        ])
     }
 
     // Build 데이터를 셀 UI에 바인딩하는 함수

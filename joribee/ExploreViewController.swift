@@ -35,14 +35,14 @@ class ExploreViewController: UIViewController {
         categoryCollectionView.delegate = self
         categoryCollectionView.dataSource = self
         categoryCollectionView.register(
-            UINib(nibName: "CategoryCell", bundle: nil),
+            CategoryCell.self,
             forCellWithReuseIdentifier: CategoryCell.identifier
         )
 
         buildCollectionView.delegate = self
         buildCollectionView.dataSource = self
         buildCollectionView.register(
-            UINib(nibName: "BuildCardCell", bundle: nil),
+            BuildCardCell.self,
             forCellWithReuseIdentifier: BuildCardCell.identifier
         )
 
