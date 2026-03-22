@@ -8,97 +8,101 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="BuildCardCell" id="BCCell-ID" customClass="BuildCardCell" customModule="joribee" customModuleProvider="target">
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="BuildCardCell" id="gTV-IL-0wX" customClass="BuildCardCell" customModule="joribee" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="361" height="340"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="BCCell-CV-ID">
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="aKz-71-mTb">
                 <rect key="frame" x="0.0" y="0.0" width="361" height="340"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BC-Thumb-ID">
-                        <rect key="frame" x="0.0" y="0.0" width="361" height="198"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tHm-e4-K9q">
+                        <rect key="frame" x="0.0" y="0.0" width="361" height="199"/>
                         <color key="backgroundColor" systemColor="systemGray5Color"/>
+                        <constraints>
+                            <constraint firstAttribute="height" secondItem="tHm-e4-K9q" secondAttribute="width" multiplier="0.55" id="arC-01-hwm"/>
+                        </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="카테고리" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BC-Cat-ID">
-                        <rect key="frame" x="12" y="210" width="60" height="22"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="카테고리" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fEZ-3b-mAx">
+                        <rect key="frame" x="12" y="211" width="60" height="22"/>
                         <color key="backgroundColor" systemColor="systemBlueColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="22" id="hEn-7f-cat"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="견적 제목" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BC-Title-ID">
-                        <rect key="frame" x="12" y="240" width="337" height="19"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="견적 제목" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bPQ-9d-tLx">
+                        <rect key="frame" x="12" y="241" width="337" height="19"/>
                         <fontDescription key="fontDescription" type="system" weight="bold" pointSize="16"/>
                         <color key="textColor" systemColor="labelColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CPU: -" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BC-Cpu-ID">
-                        <rect key="frame" x="12" y="265" width="337" height="16"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CPU: -" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nRV-2k-cPu">
+                        <rect key="frame" x="12" y="266" width="337" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" systemColor="secondaryLabelColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GPU: -" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BC-Gpu-ID">
-                        <rect key="frame" x="12" y="283" width="337" height="16"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GPU: -" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pWz-8j-gHd">
+                        <rect key="frame" x="12" y="284" width="337" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" systemColor="secondaryLabelColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0원" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BC-Price-ID">
-                        <rect key="frame" x="12" y="309" width="100" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0원" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mXq-5e-rJp">
+                        <rect key="frame" x="12" y="310" width="100" height="21"/>
                         <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="18"/>
                         <color key="textColor" systemColor="systemBlueColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heart.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="BC-Heart-ID">
-                        <rect key="frame" x="313" y="312" width="16" height="16"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heart.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="kLv-6n-wQe">
+                        <rect key="frame" x="313" y="313" width="16" height="16"/>
                         <color key="tintColor" systemColor="systemRedColor"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="16" id="BCC-HW-ID"/>
-                            <constraint firstAttribute="height" constant="16" id="BCC-HH-ID"/>
+                            <constraint firstAttribute="width" constant="16" id="wPm-3c-htW"/>
+                            <constraint firstAttribute="height" constant="16" id="xNq-4d-jRv"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BC-Like-ID">
-                        <rect key="frame" x="333" y="311" width="16" height="18"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qRz-7m-nYe">
+                        <rect key="frame" x="333" y="312" width="16" height="18"/>
                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
                         <color key="textColor" systemColor="secondaryLabelColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="BC-Thumb-ID" firstAttribute="top" secondItem="BCCell-CV-ID" secondAttribute="top" id="BCC-1-ID"/>
-                    <constraint firstItem="BC-Thumb-ID" firstAttribute="leading" secondItem="BCCell-CV-ID" secondAttribute="leading" id="BCC-2-ID"/>
-                    <constraint firstItem="BCCell-CV-ID" firstAttribute="trailing" secondItem="BC-Thumb-ID" secondAttribute="trailing" id="BCC-3-ID"/>
-                    <constraint firstItem="BC-Thumb-ID" firstAttribute="height" secondItem="BC-Thumb-ID" secondAttribute="width" multiplier="0.55" id="BCC-4-ID"/>
-                    <constraint firstItem="BC-Cat-ID" firstAttribute="top" secondItem="BC-Thumb-ID" secondAttribute="bottom" constant="12" id="BCC-5-ID"/>
-                    <constraint firstItem="BC-Cat-ID" firstAttribute="leading" secondItem="BCCell-CV-ID" secondAttribute="leading" constant="12" id="BCC-6-ID"/>
-                    <constraint firstItem="BC-Cat-ID" firstAttribute="height" constant="22" id="BCC-7-ID"/>
-                    <constraint firstItem="BC-Title-ID" firstAttribute="top" secondItem="BC-Cat-ID" secondAttribute="bottom" constant="8" id="BCC-8-ID"/>
-                    <constraint firstItem="BC-Title-ID" firstAttribute="leading" secondItem="BCCell-CV-ID" secondAttribute="leading" constant="12" id="BCC-9-ID"/>
-                    <constraint firstItem="BCCell-CV-ID" firstAttribute="trailing" secondItem="BC-Title-ID" secondAttribute="trailing" constant="12" id="BCC-10-ID"/>
-                    <constraint firstItem="BC-Cpu-ID" firstAttribute="top" secondItem="BC-Title-ID" secondAttribute="bottom" constant="6" id="BCC-11-ID"/>
-                    <constraint firstItem="BC-Cpu-ID" firstAttribute="leading" secondItem="BCCell-CV-ID" secondAttribute="leading" constant="12" id="BCC-12-ID"/>
-                    <constraint firstItem="BCCell-CV-ID" firstAttribute="trailing" secondItem="BC-Cpu-ID" secondAttribute="trailing" constant="12" id="BCC-13-ID"/>
-                    <constraint firstItem="BC-Gpu-ID" firstAttribute="top" secondItem="BC-Cpu-ID" secondAttribute="bottom" constant="2" id="BCC-14-ID"/>
-                    <constraint firstItem="BC-Gpu-ID" firstAttribute="leading" secondItem="BCCell-CV-ID" secondAttribute="leading" constant="12" id="BCC-15-ID"/>
-                    <constraint firstItem="BCCell-CV-ID" firstAttribute="trailing" secondItem="BC-Gpu-ID" secondAttribute="trailing" constant="12" id="BCC-16-ID"/>
-                    <constraint firstItem="BC-Price-ID" firstAttribute="top" secondItem="BC-Gpu-ID" secondAttribute="bottom" constant="10" id="BCC-17-ID"/>
-                    <constraint firstItem="BC-Price-ID" firstAttribute="leading" secondItem="BCCell-CV-ID" secondAttribute="leading" constant="12" id="BCC-18-ID"/>
-                    <constraint firstItem="BC-Heart-ID" firstAttribute="centerY" secondItem="BC-Price-ID" secondAttribute="centerY" id="BCC-19-ID"/>
-                    <constraint firstItem="BC-Like-ID" firstAttribute="leading" secondItem="BC-Heart-ID" secondAttribute="trailing" constant="4" id="BCC-20-ID"/>
-                    <constraint firstItem="BC-Like-ID" firstAttribute="centerY" secondItem="BC-Price-ID" secondAttribute="centerY" id="BCC-21-ID"/>
-                    <constraint firstItem="BCCell-CV-ID" firstAttribute="trailing" secondItem="BC-Like-ID" secondAttribute="trailing" constant="12" id="BCC-22-ID"/>
+                    <constraint firstItem="tHm-e4-K9q" firstAttribute="top" secondItem="aKz-71-mTb" secondAttribute="top" id="a01-bC-d2E"/>
+                    <constraint firstItem="tHm-e4-K9q" firstAttribute="leading" secondItem="aKz-71-mTb" secondAttribute="leading" id="a02-bC-d2E"/>
+                    <constraint firstItem="aKz-71-mTb" firstAttribute="trailing" secondItem="tHm-e4-K9q" secondAttribute="trailing" id="a03-bC-d2E"/>
+                    <constraint firstItem="fEZ-3b-mAx" firstAttribute="top" secondItem="tHm-e4-K9q" secondAttribute="bottom" constant="12" id="a04-bC-d2E"/>
+                    <constraint firstItem="fEZ-3b-mAx" firstAttribute="leading" secondItem="aKz-71-mTb" secondAttribute="leading" constant="12" id="a05-bC-d2E"/>
+                    <constraint firstItem="bPQ-9d-tLx" firstAttribute="top" secondItem="fEZ-3b-mAx" secondAttribute="bottom" constant="8" id="a06-bC-d2E"/>
+                    <constraint firstItem="bPQ-9d-tLx" firstAttribute="leading" secondItem="aKz-71-mTb" secondAttribute="leading" constant="12" id="a07-bC-d2E"/>
+                    <constraint firstItem="aKz-71-mTb" firstAttribute="trailing" secondItem="bPQ-9d-tLx" secondAttribute="trailing" constant="12" id="a08-bC-d2E"/>
+                    <constraint firstItem="nRV-2k-cPu" firstAttribute="top" secondItem="bPQ-9d-tLx" secondAttribute="bottom" constant="6" id="a09-bC-d2E"/>
+                    <constraint firstItem="nRV-2k-cPu" firstAttribute="leading" secondItem="aKz-71-mTb" secondAttribute="leading" constant="12" id="a10-bC-d2E"/>
+                    <constraint firstItem="aKz-71-mTb" firstAttribute="trailing" secondItem="nRV-2k-cPu" secondAttribute="trailing" constant="12" id="a11-bC-d2E"/>
+                    <constraint firstItem="pWz-8j-gHd" firstAttribute="top" secondItem="nRV-2k-cPu" secondAttribute="bottom" constant="2" id="a12-bC-d2E"/>
+                    <constraint firstItem="pWz-8j-gHd" firstAttribute="leading" secondItem="aKz-71-mTb" secondAttribute="leading" constant="12" id="a13-bC-d2E"/>
+                    <constraint firstItem="aKz-71-mTb" firstAttribute="trailing" secondItem="pWz-8j-gHd" secondAttribute="trailing" constant="12" id="a14-bC-d2E"/>
+                    <constraint firstItem="mXq-5e-rJp" firstAttribute="top" secondItem="pWz-8j-gHd" secondAttribute="bottom" constant="10" id="a15-bC-d2E"/>
+                    <constraint firstItem="mXq-5e-rJp" firstAttribute="leading" secondItem="aKz-71-mTb" secondAttribute="leading" constant="12" id="a16-bC-d2E"/>
+                    <constraint firstItem="kLv-6n-wQe" firstAttribute="centerY" secondItem="mXq-5e-rJp" secondAttribute="centerY" id="a17-bC-d2E"/>
+                    <constraint firstItem="qRz-7m-nYe" firstAttribute="leading" secondItem="kLv-6n-wQe" secondAttribute="trailing" constant="4" id="a18-bC-d2E"/>
+                    <constraint firstItem="qRz-7m-nYe" firstAttribute="centerY" secondItem="mXq-5e-rJp" secondAttribute="centerY" id="a19-bC-d2E"/>
+                    <constraint firstItem="aKz-71-mTb" firstAttribute="trailing" secondItem="qRz-7m-nYe" secondAttribute="trailing" constant="12" id="a20-bC-d2E"/>
                 </constraints>
             </view>
             <connections>
-                <outlet property="thumbnailImageView" destination="BC-Thumb-ID" id="BCO-Thumb-ID"/>
-                <outlet property="categoryLabel" destination="BC-Cat-ID" id="BCO-Cat-ID"/>
-                <outlet property="titleLabel" destination="BC-Title-ID" id="BCO-Title-ID"/>
-                <outlet property="cpuLabel" destination="BC-Cpu-ID" id="BCO-Cpu-ID"/>
-                <outlet property="gpuLabel" destination="BC-Gpu-ID" id="BCO-Gpu-ID"/>
-                <outlet property="priceLabel" destination="BC-Price-ID" id="BCO-Price-ID"/>
-                <outlet property="heartImageView" destination="BC-Heart-ID" id="BCO-Heart-ID"/>
-                <outlet property="likeCountLabel" destination="BC-Like-ID" id="BCO-Like-ID"/>
+                <outlet property="thumbnailImageView" destination="tHm-e4-K9q" id="o01-bC-d2E"/>
+                <outlet property="categoryLabel" destination="fEZ-3b-mAx" id="o02-bC-d2E"/>
+                <outlet property="titleLabel" destination="bPQ-9d-tLx" id="o03-bC-d2E"/>
+                <outlet property="cpuLabel" destination="nRV-2k-cPu" id="o04-bC-d2E"/>
+                <outlet property="gpuLabel" destination="pWz-8j-gHd" id="o05-bC-d2E"/>
+                <outlet property="priceLabel" destination="mXq-5e-rJp" id="o06-bC-d2E"/>
+                <outlet property="heartImageView" destination="kLv-6n-wQe" id="o07-bC-d2E"/>
+                <outlet property="likeCountLabel" destination="qRz-7m-nYe" id="o08-bC-d2E"/>
             </connections>
         </collectionViewCell>
     </objects>

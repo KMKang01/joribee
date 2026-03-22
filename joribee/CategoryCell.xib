@@ -8,14 +8,14 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CategoryCell" id="CatCell-ID" customClass="CategoryCell" customModule="joribee" customModuleProvider="target">
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CategoryCell" id="hVz-LP-8wR" customClass="CategoryCell" customModule="joribee" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="80" height="34"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="CatCell-CV-ID">
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="jQr-Mn-5Ko">
                 <rect key="frame" x="0.0" y="0.0" width="80" height="34"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="카테고리" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CatNameLabel-ID">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="카테고리" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dRf-Kn-2eP">
                         <rect key="frame" x="14" y="6" width="52" height="22"/>
                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                         <color key="textColor" systemColor="labelColor"/>
@@ -23,14 +23,14 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="CatNameLabel-ID" firstAttribute="top" secondItem="CatCell-CV-ID" secondAttribute="top" constant="6" id="CatC-Top-ID"/>
-                    <constraint firstItem="CatCell-CV-ID" firstAttribute="bottom" secondItem="CatNameLabel-ID" secondAttribute="bottom" constant="6" id="CatC-Bot-ID"/>
-                    <constraint firstItem="CatNameLabel-ID" firstAttribute="leading" secondItem="CatCell-CV-ID" secondAttribute="leading" constant="14" id="CatC-Lead-ID"/>
-                    <constraint firstItem="CatCell-CV-ID" firstAttribute="trailing" secondItem="CatNameLabel-ID" secondAttribute="trailing" constant="14" id="CatC-Trail-ID"/>
+                    <constraint firstItem="dRf-Kn-2eP" firstAttribute="top" secondItem="jQr-Mn-5Ko" secondAttribute="top" constant="6" id="c01-xP-q3R"/>
+                    <constraint firstItem="jQr-Mn-5Ko" firstAttribute="bottom" secondItem="dRf-Kn-2eP" secondAttribute="bottom" constant="6" id="c02-xP-q3R"/>
+                    <constraint firstItem="dRf-Kn-2eP" firstAttribute="leading" secondItem="jQr-Mn-5Ko" secondAttribute="leading" constant="14" id="c03-xP-q3R"/>
+                    <constraint firstItem="jQr-Mn-5Ko" firstAttribute="trailing" secondItem="dRf-Kn-2eP" secondAttribute="trailing" constant="14" id="c04-xP-q3R"/>
                 </constraints>
             </view>
             <connections>
-                <outlet property="nameLabel" destination="CatNameLabel-ID" id="CatO-Name-ID"/>
+                <outlet property="nameLabel" destination="dRf-Kn-2eP" id="o01-xP-q3R"/>
             </connections>
         </collectionViewCell>
     </objects>
