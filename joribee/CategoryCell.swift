@@ -14,41 +14,13 @@ class CategoryCell: UICollectionViewCell {
     static let identifier = "CategoryCell"
 
     // 카테고리 이름을 표시하는 레이블
-    private let nameLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 14, weight: .medium)
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    @IBOutlet weak var nameLabel: UILabel!
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupCell()
-        setupConstraints()
-    }
-
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setupCell()
-        setupConstraints()
-    }
-
-    // 셀의 기본 스타일을 설정하는 함수
-    private func setupCell() {
+    // XIB에서 로드 후 셀의 기본 스타일을 설정하는 함수
+    override func awakeFromNib() {
+        super.awakeFromNib()
         contentView.layer.cornerRadius = 17
         contentView.layer.borderWidth = 1
-        contentView.addSubview(nameLabel)
-    }
-
-    // 오토레이아웃 제약 조건을 설정하는 함수
-    private func setupConstraints() {
-        NSLayoutConstraint.activate([
-            nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 6),
-            nameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -6),
-            nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 14),
-            nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -14),
-        ])
     }
 
     // 카테고리 이름과 선택 상태를 셀에 반영하는 함수

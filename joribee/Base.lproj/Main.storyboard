@@ -13,7 +13,7 @@
             <objects>
                 <tabBarController id="TabBarController-ID" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="TabBar-ID">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </tabBar>
@@ -28,7 +28,7 @@
             </objects>
             <point key="canvasLocation" x="0.0" y="0.0"/>
         </scene>
-        <!--탐색-->
+        <!--탐색 Navigation Controller-->
         <scene sceneID="ExploreNav-Scene-ID">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ExploreNav-ID" sceneMemberID="viewController">
@@ -54,16 +54,200 @@
                     <view key="view" contentMode="scaleToFill" id="ExploreView-ID">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="CategoryCV-ID">
+                                <rect key="frame" x="0.0" y="103" width="393" height="50"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="8" minimumInteritemSpacing="8" id="CategoryLayout-ID">
+                                    <size key="itemSize" width="80" height="34"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="16" minY="0" maxX="16" maxY="0"/>
+                                </collectionViewFlowLayout>
+                            </collectionView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="BuildCV-ID">
+                                <rect key="frame" x="0.0" y="153" width="393" height="616"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="vertical" minimumLineSpacing="20" minimumInteritemSpacing="10" id="BuildLayout-ID">
+                                    <size key="itemSize" width="361" height="340"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="16" minY="12" maxX="16" maxY="20"/>
+                                </collectionViewFlowLayout>
+                            </collectionView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="ExploreSafeArea-ID"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="CategoryCV-ID" firstAttribute="top" secondItem="ExploreSafeArea-ID" secondAttribute="top" id="ExC-1-ID"/>
+                            <constraint firstItem="CategoryCV-ID" firstAttribute="leading" secondItem="ExploreView-ID" secondAttribute="leading" id="ExC-2-ID"/>
+                            <constraint firstItem="ExploreView-ID" firstAttribute="trailing" secondItem="CategoryCV-ID" secondAttribute="trailing" id="ExC-3-ID"/>
+                            <constraint firstItem="CategoryCV-ID" firstAttribute="height" constant="50" id="ExC-4-ID"/>
+                            <constraint firstItem="BuildCV-ID" firstAttribute="top" secondItem="CategoryCV-ID" secondAttribute="bottom" id="ExC-5-ID"/>
+                            <constraint firstItem="BuildCV-ID" firstAttribute="leading" secondItem="ExploreView-ID" secondAttribute="leading" id="ExC-6-ID"/>
+                            <constraint firstItem="ExploreView-ID" firstAttribute="trailing" secondItem="BuildCV-ID" secondAttribute="trailing" id="ExC-7-ID"/>
+                            <constraint firstItem="BuildCV-ID" firstAttribute="bottom" secondItem="ExploreView-ID" secondAttribute="bottom" id="ExC-8-ID"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="탐색" id="ExploreNavItem-ID"/>
+                    <connections>
+                        <outlet property="categoryCollectionView" destination="CategoryCV-ID" id="ExO-Cat-ID"/>
+                        <outlet property="buildCollectionView" destination="BuildCV-ID" id="ExO-Build-ID"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ExploreVC-FR-ID" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-880" y="1100"/>
         </scene>
-        <!--빌더-->
+        <!--견적 상세-->
+        <scene sceneID="DetailVC-Scene-ID">
+            <objects>
+                <viewController storyboardIdentifier="BuildDetailViewController" id="DetailVC-ID" customClass="BuildDetailViewController" customModule="joribee" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="DetailView-ID">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DetailScroll-ID">
+                                <rect key="frame" x="0.0" y="103" width="393" height="749"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DetailContent-ID">
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="680"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DetailImage-ID">
+                                                <rect key="frame" x="0.0" y="0.0" width="393" height="220"/>
+                                                <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="카테고리" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DetailCatLabel-ID">
+                                                <rect key="frame" x="16" y="236" width="60" height="24"/>
+                                                <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="견적 제목" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DetailTitle-ID">
+                                                <rect key="frame" x="16" y="270" width="361" height="26"/>
+                                                <fontDescription key="fontDescription" type="system" weight="bold" pointSize="22"/>
+                                                <color key="textColor" systemColor="labelColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="DetailLikeStack-ID">
+                                                <rect key="frame" x="16" y="304" width="50" height="18"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heart.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="DetailHeartIcon-ID">
+                                                        <rect key="frame" x="0.0" y="0.0" width="18" height="18"/>
+                                                        <color key="tintColor" systemColor="systemRedColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="18" id="DC-HW-ID"/>
+                                                            <constraint firstAttribute="height" constant="18" id="DC-HH-ID"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DetailLikeCount-ID">
+                                                        <rect key="frame" x="22" y="0.0" width="28" height="18"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="부품 목록" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DetailCompSection-ID">
+                                                <rect key="frame" x="16" y="346" width="72" height="22"/>
+                                                <fontDescription key="fontDescription" type="system" weight="bold" pointSize="18"/>
+                                                <color key="textColor" systemColor="labelColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="DetailCompStack-ID">
+                                                <rect key="frame" x="16" y="380" width="361" height="0.0"/>
+                                            </stackView>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DetailDivider-ID">
+                                                <rect key="frame" x="16" y="396" width="361" height="1"/>
+                                                <color key="backgroundColor" systemColor="systemGray4Color"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="1" id="DC-DivH-ID"/>
+                                                </constraints>
+                                            </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="합계  0원" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DetailTotalPrice-ID">
+                                                <rect key="frame" x="16" y="409" width="361" height="26"/>
+                                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="22"/>
+                                                <color key="textColor" systemColor="systemBlueColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DetailImportBtn-ID">
+                                                <rect key="frame" x="16" y="459" width="361" height="52"/>
+                                                <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="52" id="DC-BtnH-ID"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" weight="bold" pointSize="17"/>
+                                                <state key="normal" title="내 빌더로 가져오기">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="DetailImage-ID" firstAttribute="top" secondItem="DetailContent-ID" secondAttribute="top" id="DC-1-ID"/>
+                                            <constraint firstItem="DetailImage-ID" firstAttribute="leading" secondItem="DetailContent-ID" secondAttribute="leading" id="DC-2-ID"/>
+                                            <constraint firstItem="DetailContent-ID" firstAttribute="trailing" secondItem="DetailImage-ID" secondAttribute="trailing" id="DC-3-ID"/>
+                                            <constraint firstItem="DetailImage-ID" firstAttribute="height" constant="220" id="DC-4-ID"/>
+                                            <constraint firstItem="DetailCatLabel-ID" firstAttribute="top" secondItem="DetailImage-ID" secondAttribute="bottom" constant="16" id="DC-5-ID"/>
+                                            <constraint firstItem="DetailCatLabel-ID" firstAttribute="leading" secondItem="DetailContent-ID" secondAttribute="leading" constant="16" id="DC-6-ID"/>
+                                            <constraint firstItem="DetailCatLabel-ID" firstAttribute="height" constant="24" id="DC-7-ID"/>
+                                            <constraint firstItem="DetailTitle-ID" firstAttribute="top" secondItem="DetailCatLabel-ID" secondAttribute="bottom" constant="10" id="DC-8-ID"/>
+                                            <constraint firstItem="DetailTitle-ID" firstAttribute="leading" secondItem="DetailContent-ID" secondAttribute="leading" constant="16" id="DC-9-ID"/>
+                                            <constraint firstItem="DetailContent-ID" firstAttribute="trailing" secondItem="DetailTitle-ID" secondAttribute="trailing" constant="16" id="DC-10-ID"/>
+                                            <constraint firstItem="DetailLikeStack-ID" firstAttribute="top" secondItem="DetailTitle-ID" secondAttribute="bottom" constant="8" id="DC-11-ID"/>
+                                            <constraint firstItem="DetailLikeStack-ID" firstAttribute="leading" secondItem="DetailContent-ID" secondAttribute="leading" constant="16" id="DC-12-ID"/>
+                                            <constraint firstItem="DetailCompSection-ID" firstAttribute="top" secondItem="DetailLikeStack-ID" secondAttribute="bottom" constant="24" id="DC-13-ID"/>
+                                            <constraint firstItem="DetailCompSection-ID" firstAttribute="leading" secondItem="DetailContent-ID" secondAttribute="leading" constant="16" id="DC-14-ID"/>
+                                            <constraint firstItem="DetailCompStack-ID" firstAttribute="top" secondItem="DetailCompSection-ID" secondAttribute="bottom" constant="12" id="DC-15-ID"/>
+                                            <constraint firstItem="DetailCompStack-ID" firstAttribute="leading" secondItem="DetailContent-ID" secondAttribute="leading" constant="16" id="DC-16-ID"/>
+                                            <constraint firstItem="DetailContent-ID" firstAttribute="trailing" secondItem="DetailCompStack-ID" secondAttribute="trailing" constant="16" id="DC-17-ID"/>
+                                            <constraint firstItem="DetailDivider-ID" firstAttribute="top" secondItem="DetailCompStack-ID" secondAttribute="bottom" constant="16" id="DC-18-ID"/>
+                                            <constraint firstItem="DetailDivider-ID" firstAttribute="leading" secondItem="DetailContent-ID" secondAttribute="leading" constant="16" id="DC-19-ID"/>
+                                            <constraint firstItem="DetailContent-ID" firstAttribute="trailing" secondItem="DetailDivider-ID" secondAttribute="trailing" constant="16" id="DC-20-ID"/>
+                                            <constraint firstItem="DetailTotalPrice-ID" firstAttribute="top" secondItem="DetailDivider-ID" secondAttribute="bottom" constant="12" id="DC-21-ID"/>
+                                            <constraint firstItem="DetailTotalPrice-ID" firstAttribute="leading" secondItem="DetailContent-ID" secondAttribute="leading" constant="16" id="DC-22-ID"/>
+                                            <constraint firstItem="DetailContent-ID" firstAttribute="trailing" secondItem="DetailTotalPrice-ID" secondAttribute="trailing" constant="16" id="DC-23-ID"/>
+                                            <constraint firstItem="DetailImportBtn-ID" firstAttribute="top" secondItem="DetailTotalPrice-ID" secondAttribute="bottom" constant="24" id="DC-24-ID"/>
+                                            <constraint firstItem="DetailImportBtn-ID" firstAttribute="leading" secondItem="DetailContent-ID" secondAttribute="leading" constant="16" id="DC-25-ID"/>
+                                            <constraint firstItem="DetailContent-ID" firstAttribute="trailing" secondItem="DetailImportBtn-ID" secondAttribute="trailing" constant="16" id="DC-26-ID"/>
+                                            <constraint firstItem="DetailContent-ID" firstAttribute="bottom" secondItem="DetailImportBtn-ID" secondAttribute="bottom" constant="32" id="DC-27-ID"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="DetailContent-ID" firstAttribute="top" secondItem="DetailScroll-ID" secondAttribute="top" id="DC-S1-ID"/>
+                                    <constraint firstItem="DetailContent-ID" firstAttribute="leading" secondItem="DetailScroll-ID" secondAttribute="leading" id="DC-S2-ID"/>
+                                    <constraint firstItem="DetailScroll-ID" firstAttribute="trailing" secondItem="DetailContent-ID" secondAttribute="trailing" id="DC-S3-ID"/>
+                                    <constraint firstItem="DetailScroll-ID" firstAttribute="bottom" secondItem="DetailContent-ID" secondAttribute="bottom" id="DC-S4-ID"/>
+                                    <constraint firstItem="DetailContent-ID" firstAttribute="width" secondItem="DetailScroll-ID" secondAttribute="width" id="DC-S5-ID"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="DetailSafeArea-ID"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="DetailScroll-ID" firstAttribute="top" secondItem="DetailSafeArea-ID" secondAttribute="top" id="DC-V1-ID"/>
+                            <constraint firstItem="DetailScroll-ID" firstAttribute="leading" secondItem="DetailView-ID" secondAttribute="leading" id="DC-V2-ID"/>
+                            <constraint firstItem="DetailView-ID" firstAttribute="trailing" secondItem="DetailScroll-ID" secondAttribute="trailing" id="DC-V3-ID"/>
+                            <constraint firstItem="DetailScroll-ID" firstAttribute="bottom" secondItem="DetailView-ID" secondAttribute="bottom" id="DC-V4-ID"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="견적 상세" id="DetailNavItem-ID"/>
+                    <connections>
+                        <outlet property="headerImageView" destination="DetailImage-ID" id="DO-Image-ID"/>
+                        <outlet property="categoryLabel" destination="DetailCatLabel-ID" id="DO-Cat-ID"/>
+                        <outlet property="titleLabel" destination="DetailTitle-ID" id="DO-Title-ID"/>
+                        <outlet property="likeCountLabel" destination="DetailLikeCount-ID" id="DO-Like-ID"/>
+                        <outlet property="componentStackView" destination="DetailCompStack-ID" id="DO-Stack-ID"/>
+                        <outlet property="totalPriceLabel" destination="DetailTotalPrice-ID" id="DO-Price-ID"/>
+                        <outlet property="importButton" destination="DetailImportBtn-ID" id="DO-Btn-ID"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DetailVC-FR-ID" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-880" y="1700"/>
+        </scene>
+        <!--빌더 Navigation Controller-->
         <scene sceneID="BuilderNav-Scene-ID">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="BuilderNav-ID" sceneMemberID="viewController">
@@ -98,7 +282,7 @@
             </objects>
             <point key="canvasLocation" x="140" y="1100"/>
         </scene>
-        <!--기록-->
+        <!--기록 Navigation Controller-->
         <scene sceneID="HistoryNav-Scene-ID">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="HistoryNav-ID" sceneMemberID="viewController">
@@ -133,7 +317,7 @@
             </objects>
             <point key="canvasLocation" x="1160" y="1100"/>
         </scene>
-        <!--마이-->
+        <!--마이 Navigation Controller-->
         <scene sceneID="MyPageNav-Scene-ID">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="MyPageNav-ID" sceneMemberID="viewController">
@@ -172,10 +356,29 @@
     <resources>
         <image name="clock" catalog="system" width="128" height="123"/>
         <image name="hammer" catalog="system" width="128" height="117"/>
+        <image name="heart.fill" catalog="system" width="128" height="113"/>
         <image name="person" catalog="system" width="128" height="121"/>
         <image name="square.grid.2x2" catalog="system" width="128" height="114"/>
+        <systemColor name="labelColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.6" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="0.99607843137254903" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray4Color">
+            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -19,71 +19,37 @@ class ExploreViewController: UIViewController {
     // 현재 선택된 카테고리 인덱스
     private var selectedCategoryIndex: Int = 0
 
-    // 상단 카테고리 필터용 컬렉션뷰
-    private lazy var categoryCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-        layout.minimumInteritemSpacing = 8
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
-
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .systemBackground
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.register(CategoryCell.self, forCellWithReuseIdentifier: CategoryCell.identifier)
-        return collectionView
-    }()
-
-    // 빌드 카드 피드용 컬렉션뷰
-    private lazy var buildCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        layout.minimumLineSpacing = 20
-        layout.sectionInset = UIEdgeInsets(top: 12, left: 16, bottom: 20, right: 16)
-
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .systemBackground
-        collectionView.showsVerticalScrollIndicator = false
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.register(BuildCardCell.self, forCellWithReuseIdentifier: BuildCardCell.identifier)
-        return collectionView
-    }()
+    // 상단 카테고리 필터용 컬렉션뷰 (Storyboard 연결)
+    @IBOutlet weak var categoryCollectionView: UICollectionView!
+    // 빌드 카드 피드용 컬렉션뷰 (Storyboard 연결)
+    @IBOutlet weak var buildCollectionView: UICollectionView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "탐색"
-        view.backgroundColor = .systemBackground
-        setupSubviews()
-        setupConstraints()
+        setupCollectionViews()
         loadSampleData()
     }
 
-    // 서브뷰를 화면에 추가하는 함수
-    private func setupSubviews() {
-        view.addSubview(categoryCollectionView)
-        view.addSubview(buildCollectionView)
-    }
+    // 컬렉션뷰의 delegate, dataSource 및 셀 등록을 설정하는 함수
+    private func setupCollectionViews() {
+        categoryCollectionView.delegate = self
+        categoryCollectionView.dataSource = self
+        categoryCollectionView.register(
+            UINib(nibName: "CategoryCell", bundle: nil),
+            forCellWithReuseIdentifier: CategoryCell.identifier
+        )
 
-    // 오토레이아웃 제약 조건을 설정하는 함수
-    private func setupConstraints() {
-        NSLayoutConstraint.activate([
-            // 카테고리 컬렉션뷰 (상단 고정, 높이 50)
-            categoryCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            categoryCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            categoryCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            categoryCollectionView.heightAnchor.constraint(equalToConstant: 50),
+        buildCollectionView.delegate = self
+        buildCollectionView.dataSource = self
+        buildCollectionView.register(
+            UINib(nibName: "BuildCardCell", bundle: nil),
+            forCellWithReuseIdentifier: BuildCardCell.identifier
+        )
 
-            // 빌드 컬렉션뷰 (카테고리 아래 ~ 하단)
-            buildCollectionView.topAnchor.constraint(equalTo: categoryCollectionView.bottomAnchor),
-            buildCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            buildCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            buildCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        // 카테고리 셀 자동 크기 조정 설정
+        if let layout = categoryCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        }
     }
 
     // 샘플 데이터를 로드하고 컬렉션뷰에 반영하는 함수
@@ -142,6 +108,11 @@ extension ExploreViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == categoryCollectionView {
             filterBuilds(by: indexPath.item)
+        } else {
+            let selectedBuild = filteredBuilds[indexPath.item]
+            guard let detailVC = storyboard?.instantiateViewController(withIdentifier: "BuildDetailViewController") as? BuildDetailViewController else { return }
+            detailVC.build = selectedBuild
+            navigationController?.pushViewController(detailVC, animated: true)
         }
     }
 }
