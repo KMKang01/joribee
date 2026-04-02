@@ -34,8 +34,8 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ExploreNav-ID" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="탐색" image="square.grid.2x2" catalog="system" id="ExploreTabItem-ID"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="ExploreNavBar-ID">
-                        <rect key="frame" x="0.0" y="117.99999999999999" width="393" height="106.66666666666664"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ExploreNavBar-ID">
+                        <rect key="frame" x="0.0" y="118" width="393" height="54"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -56,7 +56,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="CategoryCV-ID">
-                                <rect key="frame" x="0.0" y="224.66666666666666" width="393" height="49.999999999999972"/>
+                                <rect key="frame" x="0.0" y="172" width="393" height="50"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="8" minimumInteritemSpacing="8" id="CategoryLayout-ID">
                                     <size key="itemSize" width="80" height="34"/>
@@ -66,7 +66,7 @@
                                 </collectionViewFlowLayout>
                             </collectionView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="BuildCV-ID">
-                                <rect key="frame" x="0.0" y="274.66666666666669" width="393" height="577.33333333333326"/>
+                                <rect key="frame" x="0.0" y="222" width="393" height="630"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="20" minimumInteritemSpacing="10" id="BuildLayout-ID">
                                     <size key="itemSize" width="361" height="340"/>
@@ -266,8 +266,8 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="BuilderNav-ID" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="빌더" image="hammer" catalog="system" id="BuilderTabItem-ID"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="BuilderNavBar-ID">
-                        <rect key="frame" x="0.0" y="117.99999999999999" width="393" height="106.66666666666664"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="BuilderNavBar-ID">
+                        <rect key="frame" x="0.0" y="118" width="393" height="54"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -288,16 +288,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BldProgress-ID">
-                                <rect key="frame" x="16" y="232.66666666666666" width="361" height="4"/>
+                                <rect key="frame" x="16" y="180" width="361" height="4"/>
                                 <color key="progressTintColor" systemColor="systemBlueColor"/>
                             </progressView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="용도와 예산" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BldStepTitle-ID">
-                                <rect key="frame" x="16" y="248.66666666666663" width="361" height="28"/>
+                                <rect key="frame" x="16" y="196" width="361" height="28"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이 컴퓨터로 무엇을 할 것인지 정하세요." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BldGuide-ID">
-                                <rect key="frame" x="16" y="282.66666666666669" width="361" height="17"/>
+                                <rect key="frame" x="16" y="230" width="361" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" systemColor="secondaryLabelColor"/>
                                 <nil key="highlightedColor"/>
@@ -359,8 +359,8 @@
                                     <constraint firstAttribute="trailing" secondItem="BldNextBtn-ID" secondAttribute="trailing" constant="16" id="Bld-B9-ID"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="BldTableView-ID">
-                                <rect key="frame" x="0.0" y="307.66666666666674" width="393" height="357.33333333333326"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="BldTableView-ID">
+                                <rect key="frame" x="0.0" y="255" width="393" height="410"/>
                                 <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
                             </tableView>
                         </subviews>
@@ -368,7 +368,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="BldProgress-ID" firstAttribute="top" secondItem="BuilderSafeArea-ID" secondAttribute="top" constant="8" id="Bld-C1-ID"/>
-                            <constraint firstItem="BldTableView-ID" firstAttribute="top" secondItem="BldGuide-ID" secondAttribute="bottom" constant="8" id="Bld-C10-ID"/>
+                            <constraint firstItem="BldTableView-ID" firstAttribute="top" secondItem="BldGuide-ID" secondAttribute="bottom" constant="16" id="Bld-C10-ID"/>
                             <constraint firstItem="BldTableView-ID" firstAttribute="leading" secondItem="BuilderView-ID" secondAttribute="leading" id="Bld-C11-ID"/>
                             <constraint firstAttribute="trailing" secondItem="BldTableView-ID" secondAttribute="trailing" id="Bld-C12-ID"/>
                             <constraint firstItem="BldTableView-ID" firstAttribute="bottom" secondItem="BldBottomBar-ID" secondAttribute="top" id="Bld-C13-ID"/>
@@ -387,14 +387,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="빌더" id="BuilderNavItem-ID">
-                        <barButtonItem title="이전" style="plain" id="BldPrevBtn-ID">
+                        <barButtonItem key="leftBarButtonItem" title="이전" style="plain" id="BldPrevBtn-ID">
                             <connections>
                                 <action selector="previousButtonTapped:" destination="BuilderVC-ID" id="BldO-PrevAction-ID"/>
                             </connections>
                         </barButtonItem>
-                        <connections>
-                            <outlet property="leftBarButtonItem" destination="BldPrevBtn-ID" id="BldNavToPrev-ID"/>
-                        </connections>
                     </navigationItem>
                     <connections>
                         <outlet property="compatibilityLabel" destination="BldCompatLabel-ID" id="BldO-Compat-ID"/>
@@ -417,8 +414,8 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="HistoryNav-ID" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="기록" image="clock" catalog="system" id="HistoryTabItem-ID"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="HistoryNavBar-ID">
-                        <rect key="frame" x="0.0" y="117.99999999999999" width="393" height="106.66666666666664"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="HistoryNavBar-ID">
+                        <rect key="frame" x="0.0" y="118" width="393" height="54"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -461,8 +458,15 @@
                             <constraint firstAttribute="trailing" secondItem="HistoryEmptyLabel-ID" secondAttribute="trailing" constant="50" id="HiC-8-ID"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="기록" id="HistoryNavItem-ID"/>
+                    <navigationItem key="navigationItem" title="기록" id="HistoryNavItem-ID">
+                        <barButtonItem key="rightBarButtonItem" title="비교" style="plain" id="HiCompareBtn-ID">
+                            <connections>
+                                <action selector="compareButtonTapped:" destination="HistoryVC-ID" id="HiO-CmpAction-ID"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="compareBarButton" destination="HiCompareBtn-ID" id="HiO-Cmp-ID"/>
                         <outlet property="emptyLabel" destination="HistoryEmptyLabel-ID" id="HiO-Empty-ID"/>
                         <outlet property="historyTableView" destination="HistoryTV-ID" id="HiO-TV-ID"/>
                     </connections>
@@ -477,7 +481,8 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="MyPageNav-ID" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="마이" image="person" catalog="system" id="MyPageTabItem-ID"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="MyPageNavBar-ID">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="MyPageNavBar-ID">
+                        <rect key="frame" x="0.0" y="118" width="393" height="54"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -489,7 +494,7 @@
             </objects>
             <point key="canvasLocation" x="2180" y="500"/>
         </scene>
-        <!--마이-->
+        <!--마이페이지-->
         <scene sceneID="MyPageVC-Scene-ID">
             <objects>
                 <viewController id="MyPageVC-ID" customClass="MyPageViewController" customModule="joribee" customModuleProvider="target" sceneMemberID="viewController">
@@ -498,7 +503,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="MyPageTV-ID">
-                                <rect key="frame" x="0.0" y="224.66666666666663" width="393" height="627.33333333333337"/>
+                                <rect key="frame" x="0.0" y="172" width="393" height="680"/>
                                 <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
                             </tableView>
                         </subviews>
@@ -511,7 +516,7 @@
                             <constraint firstItem="MyPageTV-ID" firstAttribute="bottom" secondItem="MyPageView-ID" secondAttribute="bottom" id="MpC-4-ID"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="마이" id="MyPageNavItem-ID"/>
+                    <navigationItem key="navigationItem" title="마이페이지" id="MyPageNavItem-ID"/>
                     <connections>
                         <outlet property="myPageTableView" destination="MyPageTV-ID" id="MpO-TV-ID"/>
                     </connections>
