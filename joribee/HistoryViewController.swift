@@ -42,9 +42,11 @@ class HistoryViewController: UIViewController {
         historyTableView.register(UITableViewCell.self, forCellReuseIdentifier: "HistoryCell")
     }
 
-    // BuildStore에서 견적 목록을 가져와 갱신하는 함수
+    // BuildStore에서 견적 목록을 가져와 갱신하는 함수 (비교 모드 초기화 포함)
     private func loadBuilds() {
         builds = BuildStore.shared.savedBuilds
+        isCompareMode = false
+        selectedIndices.removeAll()
         emptyLabel.isHidden = !builds.isEmpty
         historyTableView.isHidden = builds.isEmpty
         historyTableView.reloadData()
@@ -160,6 +162,11 @@ extension HistoryViewController: UITableViewDelegate {
             detailVC.build = build
             navigationController?.pushViewController(detailVC, animated: true)
         }
+    }
+
+    // 비교 모드에서는 스와이프 삭제를 비활성화하는 함수
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return isCompareMode ? .none : .delete
     }
 
     // 스와이프 삭제를 처리하는 함수
