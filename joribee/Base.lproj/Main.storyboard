@@ -386,12 +386,22 @@
                             <constraint firstAttribute="trailing" secondItem="BldGuide-ID" secondAttribute="trailing" constant="16" id="Bld-C9-ID"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="빌더" id="BuilderNavItem-ID"/>
+                    <navigationItem key="navigationItem" title="빌더" id="BuilderNavItem-ID">
+                        <barButtonItem title="이전" style="plain" id="BldPrevBtn-ID">
+                            <connections>
+                                <action selector="previousButtonTapped:" destination="BuilderVC-ID" id="BldO-PrevAction-ID"/>
+                            </connections>
+                        </barButtonItem>
+                        <connections>
+                            <outlet property="leftBarButtonItem" destination="BldPrevBtn-ID" id="BldNavToPrev-ID"/>
+                        </connections>
+                    </navigationItem>
                     <connections>
                         <outlet property="compatibilityLabel" destination="BldCompatLabel-ID" id="BldO-Compat-ID"/>
                         <outlet property="guideLabel" destination="BldGuide-ID" id="BldO-Guide-ID"/>
                         <outlet property="nextButton" destination="BldNextBtn-ID" id="BldO-Next-ID"/>
                         <outlet property="optionsTableView" destination="BldTableView-ID" id="BldO-Table-ID"/>
+                        <outlet property="previousButton" destination="BldPrevBtn-ID" id="BldO-Prev-ID"/>
                         <outlet property="progressView" destination="BldProgress-ID" id="BldO-Prog-ID"/>
                         <outlet property="stepTitleLabel" destination="BldStepTitle-ID" id="BldO-Title-ID"/>
                         <outlet property="totalPriceLabel" destination="BldTotalPrice-ID" id="BldO-Price-ID"/>
