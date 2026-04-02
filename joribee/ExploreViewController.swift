@@ -46,9 +46,9 @@ class ExploreViewController: UIViewController {
             forCellWithReuseIdentifier: BuildCardCell.identifier
         )
 
-        // 카테고리 셀 자동 크기 조정 설정
+        // 카테고리 셀 자동 크기 조정 해제 (sizeForItemAt에서 직접 계산)
         if let layout = categoryCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+            layout.estimatedItemSize = .zero
         }
     }
 
@@ -123,7 +123,9 @@ extension ExploreViewController: UICollectionViewDelegateFlowLayout {
     // 컬렉션뷰별 셀 크기를 반환하는 함수
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == categoryCollectionView {
-            return CGSize(width: 0, height: 34)
+            let text = categories[indexPath.item]
+            let textWidth = text.size(withAttributes: [.font: UIFont.systemFont(ofSize: 14, weight: .medium)]).width
+            return CGSize(width: ceil(textWidth) + 28, height: 34)
         }
 
         let width = collectionView.bounds.width - 32
