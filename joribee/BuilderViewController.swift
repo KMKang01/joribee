@@ -25,7 +25,7 @@ class BuilderViewController: UIViewController {
     // 다음 단계 버튼 (Storyboard 연결)
     @IBOutlet weak var nextButton: UIButton!
     // 이전 단계 바 버튼 (Storyboard 연결)
-    @IBOutlet weak var previousButton: UIBarButtonItem!
+    @IBOutlet var previousButton: UIBarButtonItem!
 
     // 빌더 전체 상태를 관리하는 객체
     private let builderState = BuilderState()
@@ -33,6 +33,8 @@ class BuilderViewController: UIViewController {
     private var currentOptions: [[ComponentOption]] = []
     // 현재 단계의 섹션 제목 목록
     private var sectionTitles: [String] = []
+    // 용도 선택 단계의 카테고리 순서
+    private let purposeCategories: [BuildCategory] = [.office, .budgetGaming, .highEndGaming, .videoEditing, .design, .streaming, .whiteBuild]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,7 +113,7 @@ class BuilderViewController: UIViewController {
 
     // 용도 선택 단계의 옵션을 로드하는 함수
     private func loadPurposeOptions() {
-        let categories: [BuildCategory] = [.office, .budgetGaming, .highEndGaming, .videoEditing, .design, .streaming, .whiteBuild]
+        let categories = purposeCategories
         currentOptions = [categories.map { cat in
             ComponentOption(
                 name: cat.rawValue,
@@ -259,7 +261,8 @@ extension BuilderViewController: UITableViewDataSource {
     // 섹션별 행 수를 반환하는 함수
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if builderState.currentStep == .complete {
-            return builderState.selectedComponents.count
+            let order: [ComponentCategory] = [.cpu, .gpu, .motherboard, .ram, .storage, .power, .pcCase, .cooler]
+            return order.filter { builderState.selectedComponents[$0] != nil }.count
         }
         return currentOptions[safe: section]?.count ?? 0
     }
@@ -279,7 +282,8 @@ extension BuilderViewController: UITableViewDataSource {
 
     // 완성 단계의 셀을 구성하는 함수
     private func configureCompleteCell(_ cell: UITableViewCell, at indexPath: IndexPath) {
-        let components = Array(builderState.selectedComponents.values)
+        let order: [ComponentCategory] = [.cpu, .gpu, .motherboard, .ram, .storage, .power, .pcCase, .cooler]
+        let components = order.compactMap { builderState.selectedComponents[$0] }
         guard let component = components[safe: indexPath.row] else { return }
 
         var content = cell.defaultContentConfiguration()
@@ -346,10 +350,13 @@ extension BuilderViewController: UITableViewDelegate {
         updateCompatibilityLabel()
     }
 
-    // 용도 선택을 처리하는 함수
+    // 용도 선택을 처리하는 함수 (변경 시 기존 부품 선택 초기화)
     private func handlePurposeSelection(at indexPath: IndexPath) {
-        let categories: [BuildCategory] = [.office, .budgetGaming, .highEndGaming, .videoEditing, .design, .streaming, .whiteBuild]
+        let categories = purposeCategories
         guard let selected = categories[safe: indexPath.row] else { return }
+        if builderState.selectedCategory != selected {
+            builderState.selectedComponents.removeAll()
+        }
         builderState.selectedCategory = selected
         builderState.budget = selected.recommendedBudget.maxPrice
     }
