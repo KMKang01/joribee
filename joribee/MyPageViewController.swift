@@ -29,15 +29,15 @@ class MyPageViewController: UIViewController {
         set { UserDefaults.standard.set(newValue, forKey: "userNickname") }
     }
 
-    // 선호 용도 인덱스 (UserDefaults 저장)
+    // 선호 용도 인덱스 (UserDefaults 저장, 범위 초과 시 0으로 보정)
     private var preferredCategoryIndex: Int {
-        get { UserDefaults.standard.integer(forKey: "preferredCategoryIndex") }
+        get { min(UserDefaults.standard.integer(forKey: "preferredCategoryIndex"), categoryOptions.count - 1) }
         set { UserDefaults.standard.set(newValue, forKey: "preferredCategoryIndex") }
     }
 
-    // 예산 범위 인덱스 (UserDefaults 저장)
+    // 예산 범위 인덱스 (UserDefaults 저장, 범위 초과 시 0으로 보정)
     private var budgetRangeIndex: Int {
-        get { UserDefaults.standard.integer(forKey: "budgetRangeIndex") }
+        get { min(UserDefaults.standard.integer(forKey: "budgetRangeIndex"), budgetOptions.count - 1) }
         set { UserDefaults.standard.set(newValue, forKey: "budgetRangeIndex") }
     }
 
@@ -48,7 +48,7 @@ class MyPageViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "마이"
+        title = "마이페이지"
         setupTableView()
     }
 
