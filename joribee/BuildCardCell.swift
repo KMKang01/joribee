@@ -167,8 +167,6 @@ class BuildCardCell: UICollectionViewCell {
             likeCountLabel.leadingAnchor.constraint(equalTo: heartImageView.trailingAnchor, constant: 4),
             likeCountLabel.centerYAnchor.constraint(equalTo: priceLabel.centerYAnchor),
             likeCountLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
-
-            heartImageView.trailingAnchor.constraint(equalTo: likeCountLabel.leadingAnchor, constant: -4),
         ])
     }
 
