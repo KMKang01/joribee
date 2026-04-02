@@ -61,7 +61,8 @@ class BuilderViewController: UIViewController {
         updateNextButtonState()
         updateCompatibilityLabel()
 
-        navigationItem.leftBarButtonItem = step == .purpose ? nil : previousButton
+        previousButton.isEnabled = step != .purpose
+        previousButton.tintColor = step == .purpose ? .clear : nil
     }
 
     // 현재 단계에 맞는 옵션 목록을 로드하는 함수
@@ -186,16 +187,53 @@ class BuilderViewController: UIViewController {
         }
     }
 
-    // 완성된 견적을 저장하는 함수
+    // 완성된 견적을 BuildStore에 저장하는 함수
     private func saveBuild() {
         let alert = UIAlertController(title: "견적 저장", message: "이 견적을 저장하시겠습니까?", preferredStyle: .alert)
+        alert.addTextField { textField in
+            textField.placeholder = "견적 이름을 입력하세요"
+            textField.text = "\(self.builderState.selectedCategory?.rawValue ?? "나만의") PC"
+        }
         alert.addAction(UIAlertAction(title: "취소", style: .cancel))
         alert.addAction(UIAlertAction(title: "저장", style: .default) { [weak self] _ in
             guard let self = self else { return }
+            let title = alert.textFields?.first?.text ?? "나만의 PC"
+            let components = Array(self.builderState.selectedComponents.values)
+            let build = Build(
+                id: UUID(),
+                title: title,
+                imageName: "desktopcomputer",
+                category: self.builderState.selectedCategory ?? .office,
+                components: components,
+                likeCount: 0,
+                createdDate: Date()
+            )
+            BuildStore.shared.saveBuild(build)
             self.builderState.reset()
             self.updateUI()
+
+            let doneAlert = UIAlertController(title: "저장 완료", message: "기록 탭에서 확인할 수 있습니다.", preferredStyle: .alert)
+            doneAlert.addAction(UIAlertAction(title: "확인", style: .default))
+            self.present(doneAlert, animated: true)
         })
         present(alert, animated: true)
+    }
+
+    // 외부에서 빌드 데이터를 빌더에 불러오는 함수
+    func importBuild(_ build: Build) {
+        builderState.reset()
+        // 카테고리 매칭
+        builderState.selectedCategory = build.category
+        builderState.budget = build.category.recommendedBudget.maxPrice
+        // 부품 목록 복원
+        for component in build.components {
+            builderState.selectedComponents[component.category] = component
+        }
+        // 완성 단계로 이동
+        builderState.currentStep = .complete
+        if isViewLoaded {
+            updateUI()
+        }
     }
 }
 
