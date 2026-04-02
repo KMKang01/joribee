@@ -108,11 +108,19 @@ class BuildDetailViewController: UIViewController {
     @IBAction func importButtonTapped(_ sender: UIButton) {
         let alert = UIAlertController(
             title: "빌더로 가져오기",
-            message: "이 견적을 빌더 탭으로 가져오시겠습니까?",
+            message: "이 견적을 빌더 탭으로 가져오시겠습니까?\n기존 빌더 내용은 초기화됩니다.",
             preferredStyle: .alert
         )
         alert.addAction(UIAlertAction(title: "취소", style: .cancel))
-        alert.addAction(UIAlertAction(title: "가져오기", style: .default) { _ in
+        alert.addAction(UIAlertAction(title: "가져오기", style: .default) { [weak self] _ in
+            guard let self = self, let build = self.build else { return }
+            // 빌더 탭의 NavigationController에서 BuilderViewController를 찾아 데이터 전달
+            if let tabBar = self.tabBarController,
+               let navController = tabBar.viewControllers?[1] as? UINavigationController,
+               let builderVC = navController.viewControllers.first as? BuilderViewController {
+                builderVC.importBuild(build)
+                navController.popToRootViewController(animated: false)
+            }
             self.tabBarController?.selectedIndex = 1
         })
         present(alert, animated: true)
