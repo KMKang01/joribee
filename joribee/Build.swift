@@ -8,7 +8,7 @@
 import Foundation
 
 // 부품 카테고리 (CPU, GPU, RAM 등 조립 PC 구성 요소 분류)
-enum ComponentCategory: String {
+enum ComponentCategory: String, Codable {
     case cpu = "CPU"
     case gpu = "GPU"
     case ram = "RAM"
@@ -20,7 +20,7 @@ enum ComponentCategory: String {
 }
 
 // 빌드 목적 카테고리 (게이밍, 작업용 등 사용 목적별 분류)
-enum BuildCategory: String {
+enum BuildCategory: String, Codable {
     case budgetGaming = "가성비 게이밍"
     case highEndGaming = "고사양 게이밍"
     case videoEditing = "4K 영상 편집"
@@ -31,7 +31,7 @@ enum BuildCategory: String {
 }
 
 // 개별 부품 정보를 담는 모델
-struct Component {
+struct Component: Codable {
     // 부품 카테고리 (CPU, GPU 등)
     let category: ComponentCategory
     // 부품 이름 (예: "AMD Ryzen 7 7800X3D")
@@ -41,7 +41,7 @@ struct Component {
 }
 
 // PC 견적 한 세트를 나타내는 모델
-struct Build {
+struct Build: Codable {
     // 견적 고유 식별자
     let id: UUID
     // 견적 제목 (예: "가성비 끝판왕 게이밍 PC")
