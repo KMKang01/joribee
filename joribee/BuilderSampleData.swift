@@ -237,4 +237,85 @@ struct BuilderSampleData {
             ]
         }
     }
+
+    // 부품 카테고리와 용도에 맞는 네이버 쇼핑 검색 키워드를 반환하는 함수
+    static func searchQuery(for componentCategory: ComponentCategory, purpose: BuildCategory) -> String {
+        switch componentCategory {
+        case .cpu:
+            switch purpose {
+            case .office:                    return "사무용 데스크탑 CPU 인텔 코어 i3 i5"
+            case .budgetGaming, .whiteBuild: return "가성비 게이밍 CPU Ryzen 5 7600 인텔 i5-14400F"
+            case .highEndGaming:             return "고사양 게이밍 CPU Ryzen 7 7800X3D"
+            case .videoEditing, .design:     return "영상편집 작업용 CPU Ryzen 9 7950X"
+            case .streaming:                 return "방송 스트리밍 CPU Ryzen 7 7700X"
+            }
+        case .gpu:
+            switch purpose {
+            case .office:                    return "저전력 사무용 그래픽카드 GT1030"
+            case .budgetGaming, .whiteBuild: return "가성비 게이밍 그래픽카드 RTX 4060"
+            case .highEndGaming:             return "고사양 게이밍 그래픽카드 RTX 4070 Ti Super"
+            case .videoEditing, .design:     return "영상편집 그래픽카드 RTX 4070 Super VRAM"
+            case .streaming:                 return "방송 스트리밍 그래픽카드 RTX 4060 Ti"
+            }
+        case .motherboard:
+            switch purpose {
+            case .office:                    return "사무용 메인보드 B760M LGA1700 DDR4"
+            case .budgetGaming, .whiteBuild: return "가성비 게이밍 메인보드 B650M AM5 DDR5"
+            case .highEndGaming, .videoEditing, .design, .streaming:
+                                             return "고성능 메인보드 B650 X670 AM5 ATX DDR5"
+            }
+        case .ram:
+            switch purpose {
+            case .office:                    return "사무용 데스크탑 DDR4 RAM 16GB 3200MHz"
+            case .budgetGaming, .whiteBuild: return "게이밍 DDR5 RAM 32GB 5600MHz 듀얼채널"
+            case .highEndGaming, .streaming: return "게이밍 DDR5 RAM 32GB 6000MHz 듀얼채널"
+            case .videoEditing, .design:     return "영상편집 작업용 DDR5 64GB RAM 고용량"
+            }
+        case .storage:
+            switch purpose {
+            case .office:                    return "사무용 NVMe SSD 500GB M.2 PCIe"
+            case .budgetGaming, .whiteBuild, .streaming:
+                                             return "게이밍 NVMe SSD 1TB PCIe 4.0 M.2"
+            case .highEndGaming:             return "게이밍 NVMe SSD 2TB PCIe 4.0"
+            case .videoEditing, .design:     return "영상편집 NVMe SSD 2TB 4TB PCIe 4.0"
+            }
+        case .power:
+            switch purpose {
+            case .office:                    return "사무용 파워서플라이 500W 550W 80PLUS"
+            case .budgetGaming, .whiteBuild: return "게이밍 파워서플라이 700W 브론즈 80PLUS"
+            case .highEndGaming, .videoEditing, .design, .streaming:
+                                             return "고성능 파워서플라이 850W 골드 80PLUS"
+            }
+        case .pcCase:
+            switch purpose {
+            case .office:                    return "사무용 미들타워 PC케이스 M-ATX 미니타워"
+            case .budgetGaming:              return "게이밍 ATX 미들타워 케이스 메쉬 쿨링"
+            case .highEndGaming, .videoEditing, .design, .streaming:
+                                             return "고성능 ATX 미들타워 케이스 메쉬 쿨링"
+            case .whiteBuild:                return "화이트 ATX 미들타워 PC케이스 감성"
+            }
+        case .cooler:
+            switch purpose {
+            case .office:                    return "저소음 CPU 쿨러 사무용 저발열"
+            case .budgetGaming:              return "가성비 공랭 CPU 쿨러 타워형"
+            case .highEndGaming, .streaming: return "고성능 수랭 CPU 쿨러 360mm AIO"
+            case .videoEditing, .design:     return "정숙 고성능 CPU 쿨러 듀얼타워 수랭"
+            case .whiteBuild:                return "화이트 CPU 쿨러 공랭 수랭 감성"
+            }
+        }
+    }
+
+    // 부품 카테고리와 용도에 맞는 샘플 데이터를 반환하는 함수 (API 실패 시 폴백용)
+    static func fallback(for componentCategory: ComponentCategory, purpose: BuildCategory) -> [ComponentOption] {
+        switch componentCategory {
+        case .cpu:         return cpuOptions(for: purpose)
+        case .gpu:         return gpuOptions(for: purpose)
+        case .motherboard: return motherboardOptions(for: purpose)
+        case .ram:         return ramOptions(for: purpose)
+        case .storage:     return storageOptions(for: purpose)
+        case .power:       return powerOptions(for: purpose)
+        case .pcCase:      return caseOptions(for: purpose)
+        case .cooler:      return coolerOptions(for: purpose)
+        }
+    }
 }
