@@ -160,14 +160,24 @@ class BuilderViewController: UIViewController {
         nextButton.alpha = nextButton.isEnabled ? 1.0 : 0.5
     }
 
-    // 호환성 상태 레이블을 갱신하는 함수
+    // 호환성 상태 레이블을 실제 검사 결과로 갱신하는 함수
     private func updateCompatibilityLabel() {
-        if builderState.selectedComponents.isEmpty {
+        let components = builderState.selectedComponents
+
+        if components.isEmpty {
             compatibilityLabel.text = "부품을 선택하세요"
             compatibilityLabel.textColor = .secondaryLabel
-        } else {
+            return
+        }
+
+        let problems = CompatibilityChecker.issues(for: components)
+
+        if problems.isEmpty {
             compatibilityLabel.text = "✓ 호환성 완벽"
             compatibilityLabel.textColor = .systemGreen
+        } else {
+            compatibilityLabel.text = problems.joined(separator: "\n")
+            compatibilityLabel.textColor = .systemRed
         }
     }
 

@@ -190,3 +190,80 @@ class BuilderState {
         return true
     }
 }
+
+// 선택된 부품 조합의 호환성을 검사하는 구조체
+struct CompatibilityChecker {
+
+    // CPU 이름 키워드 → 소켓 타입 매핑 딕셔너리
+    private static let cpuSocketMap: [String: String] = [
+        "i3-14100": "LGA1700",
+        "i5-14400": "LGA1700",
+        "i5-14600KF": "LGA1700",
+        "i7-14700KF": "LGA1700",
+        "i9-14900K": "LGA1700",
+        "5600G": "AM4",
+        "7600": "AM5",
+        "7700X": "AM5",
+        "7800X3D": "AM5",
+        "7900X": "AM5",
+        "7950X": "AM5",
+    ]
+
+    // 메인보드 이름 키워드 → 소켓 타입 매핑 딕셔너리
+    private static let motherboardSocketMap: [String: String] = [
+        "B760M DS3H": "LGA1700",
+        "B760M AORUS Elite": "LGA1700",
+        "Z790 STRIX-A": "LGA1700",
+        "A620M-HDV": "AM5",
+        "B650M 박격포": "AM5",
+        "B650M PG Riptide": "AM5",
+        "B650 TOMAHAWK": "AM5",
+        "X670E AORUS Master": "AM5",
+    ]
+
+    // CPU 이름으로 소켓 타입을 찾는 함수
+    static func cpuSocket(for cpuName: String) -> String? {
+        return cpuSocketMap.first { cpuName.contains($0.key) }?.value
+    }
+
+    // 메인보드 이름으로 소켓 타입을 찾는 함수
+    static func motherboardSocket(for mbName: String) -> String? {
+        return motherboardSocketMap.first { mbName.contains($0.key) }?.value
+    }
+
+    // 메인보드 이름으로 DDR 세대를 반환하는 함수 (B760M DS3H만 DDR4)
+    static func motherboardDDR(for mbName: String) -> String {
+        return mbName.contains("B760M DS3H") ? "DDR4" : "DDR5"
+    }
+
+    // RAM 이름으로 DDR 세대를 반환하는 함수
+    static func ramDDR(for ramName: String) -> String? {
+        if ramName.contains("DDR4") { return "DDR4" }
+        if ramName.contains("DDR5") { return "DDR5" }
+        return nil
+    }
+
+    // 선택된 부품 조합의 호환성 문제 목록을 반환하는 함수
+    static func issues(for components: [ComponentCategory: Component]) -> [String] {
+        var problems: [String] = []
+
+        // CPU-메인보드 소켓 호환성 검사
+        if let cpu = components[.cpu], let mb = components[.motherboard] {
+            let cpuSock = cpuSocket(for: cpu.name)
+            let mbSock = motherboardSocket(for: mb.name)
+            if let cs = cpuSock, let ms = mbSock, cs != ms {
+                problems.append("⚠ CPU(\(cs)) · 메인보드(\(ms)) 소켓 불일치")
+            }
+        }
+
+        // 메인보드-RAM DDR 세대 호환성 검사
+        if let mb = components[.motherboard], let ram = components[.ram] {
+            let mbDDR = motherboardDDR(for: mb.name)
+            if let rDDR = ramDDR(for: ram.name), mbDDR != rDDR {
+                problems.append("⚠ 메인보드(\(mbDDR)) · RAM(\(rDDR)) DDR 세대 불일치")
+            }
+        }
+
+        return problems
+    }
+}
