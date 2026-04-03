@@ -59,7 +59,6 @@ class BuilderViewController: UIViewController {
         guideLabel.text = step.guide
         updateTotalPrice()
         loadOptionsForCurrentStep()
-        optionsTableView.reloadData()
         updateNextButtonState()
         updateCompatibilityLabel()
 
@@ -67,7 +66,7 @@ class BuilderViewController: UIViewController {
         previousButton.tintColor = step == .purpose ? .clear : nil
     }
 
-    // 현재 단계에 맞는 옵션 목록을 로드하는 함수
+    // 현재 단계에 맞는 옵션 목록을 로드하는 함수 (API 우선, 실패 시 샘플 데이터 폴백)
     private func loadOptionsForCurrentStep() {
         guard let category = builderState.selectedCategory else {
             if builderState.currentStep == .purpose {
@@ -76,38 +75,93 @@ class BuilderViewController: UIViewController {
                 currentOptions = []
                 sectionTitles = []
             }
+            optionsTableView.reloadData()
             return
         }
 
         switch builderState.currentStep {
         case .purpose:
             loadPurposeOptions()
-        case .cpu:
-            currentOptions = [BuilderSampleData.cpuOptions(for: category)]
-            sectionTitles = ["CPU 선택"]
-        case .gpu:
-            currentOptions = [BuilderSampleData.gpuOptions(for: category)]
-            sectionTitles = ["그래픽카드 선택"]
-        case .motherboard:
-            currentOptions = [BuilderSampleData.motherboardOptions(for: category)]
-            sectionTitles = ["메인보드 선택"]
-        case .ramAndStorage:
-            currentOptions = [
-                BuilderSampleData.ramOptions(for: category),
-                BuilderSampleData.storageOptions(for: category)
-            ]
-            sectionTitles = ["RAM 선택", "저장장치 선택"]
-        case .power:
-            currentOptions = [BuilderSampleData.powerOptions(for: category)]
-            sectionTitles = ["파워서플라이 선택"]
-        case .caseAndCooler:
-            currentOptions = [
-                BuilderSampleData.caseOptions(for: category),
-                BuilderSampleData.coolerOptions(for: category)
-            ]
-            sectionTitles = ["케이스 선택", "쿨러 선택"]
+            optionsTableView.reloadData()
         case .complete:
             loadCompleteSummary()
+            optionsTableView.reloadData()
+        case .cpu:
+            sectionTitles = ["CPU 선택"]
+            loadWithAPI(categories: [.cpu], purpose: category)
+        case .gpu:
+            sectionTitles = ["그래픽카드 선택"]
+            loadWithAPI(categories: [.gpu], purpose: category)
+        case .motherboard:
+            sectionTitles = ["메인보드 선택"]
+            loadWithAPI(categories: [.motherboard], purpose: category)
+        case .ramAndStorage:
+            sectionTitles = ["RAM 선택", "저장장치 선택"]
+            loadWithAPI(categories: [.ram, .storage], purpose: category)
+        case .power:
+            sectionTitles = ["파워서플라이 선택"]
+            loadWithAPI(categories: [.power], purpose: category)
+        case .caseAndCooler:
+            sectionTitles = ["케이스 선택", "쿨러 선택"]
+            loadWithAPI(categories: [.pcCase, .cooler], purpose: category)
+        }
+    }
+
+    // 여러 부품 카테고리를 순서대로 API에서 가져와 currentOptions에 설정하는 함수
+    private func loadWithAPI(categories: [ComponentCategory], purpose: BuildCategory) {
+        currentOptions = Array(repeating: [], count: categories.count)
+        optionsTableView.reloadData()
+        showLoading(true)
+        fetchNextCategory(categories: categories, purpose: purpose, results: [], index: 0)
+    }
+
+    // 카테고리 목록을 순서대로 하나씩 API 요청하는 재귀 함수 (실패 시 샘플 데이터 폴백)
+    private func fetchNextCategory(categories: [ComponentCategory], purpose: BuildCategory,
+                                   results: [[ComponentOption]], index: Int) {
+        guard index < categories.count else {
+            DispatchQueue.main.async { [weak self] in
+                self?.currentOptions = results
+                self?.showLoading(false)
+                self?.optionsTableView.reloadData()
+            }
+            return
+        }
+
+        let componentCategory = categories[index]
+        let query = BuilderSampleData.searchQuery(for: componentCategory, purpose: purpose)
+
+        NaverShoppingService.shared.search(query: query) { [weak self] result in
+            guard let self = self else { return }
+            let options: [ComponentOption]
+            switch result {
+            case .success(let items):
+                let mapped = items.compactMap { item -> ComponentOption? in
+                    guard let price = Int(item.lprice), price > 0 else { return nil }
+                    let name = NaverShoppingService.shared.stripHTML(item.title)
+                    return ComponentOption(name: name, price: price, category: componentCategory,
+                                          tag: nil, description: item.mallName)
+                }
+                options = mapped.isEmpty ? BuilderSampleData.fallback(for: componentCategory, purpose: purpose) : mapped
+            case .failure:
+                options = BuilderSampleData.fallback(for: componentCategory, purpose: purpose)
+            }
+            self.fetchNextCategory(categories: categories, purpose: purpose,
+                                   results: results + [options], index: index + 1)
+        }
+    }
+
+    // 로딩 인디케이터를 표시하거나 제거하는 함수
+    private func showLoading(_ isLoading: Bool) {
+        if isLoading {
+            let indicator = UIActivityIndicatorView(style: .medium)
+            indicator.tag = 9001
+            indicator.center = optionsTableView.center
+            indicator.startAnimating()
+            view.addSubview(indicator)
+            optionsTableView.isUserInteractionEnabled = false
+        } else {
+            view.viewWithTag(9001)?.removeFromSuperview()
+            optionsTableView.isUserInteractionEnabled = true
         }
     }
 
