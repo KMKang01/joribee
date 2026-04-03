@@ -16,25 +16,48 @@ class BuildStore {
     // 저장된 견적 목록 (날짜 최신순 정렬)
     private(set) var savedBuilds: [Build] = []
 
+    // JSON 파일이 저장될 Documents 디렉토리 경로
+    private let fileURL: URL = {
+        let documents = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        return documents.appendingPathComponent("savedBuilds.json")
+    }()
+
     private init() {
-        loadInitialData()
+        savedBuilds = loadFromFile()
+        if savedBuilds.isEmpty {
+            savedBuilds = SampleData.createSampleBuilds()
+            savedBuilds.sort { $0.createdDate > $1.createdDate }
+            saveToFile()
+        }
     }
 
-    // 초기 샘플 데이터를 로드하는 함수
-    private func loadInitialData() {
-        savedBuilds = SampleData.createSampleBuilds()
-        savedBuilds.sort { $0.createdDate > $1.createdDate }
+    // JSON 파일에서 견적 목록을 불러오는 함수
+    private func loadFromFile() -> [Build] {
+        guard FileManager.default.fileExists(atPath: fileURL.path),
+              let data = try? Data(contentsOf: fileURL),
+              let builds = try? JSONDecoder().decode([Build].self, from: data) else {
+            return []
+        }
+        return builds
+    }
+
+    // 견적 목록을 JSON 파일로 저장하는 함수
+    private func saveToFile() {
+        guard let data = try? JSONEncoder().encode(savedBuilds) else { return }
+        try? data.write(to: fileURL, options: .atomic)
     }
 
     // 새로운 견적을 저장하는 함수
     func saveBuild(_ build: Build) {
         savedBuilds.insert(build, at: 0)
+        saveToFile()
     }
 
     // 특정 견적을 삭제하는 함수
     func deleteBuild(at index: Int) {
         guard savedBuilds.indices.contains(index) else { return }
         savedBuilds.remove(at: index)
+        saveToFile()
     }
 
     // 두 견적의 부품별 가격 차이를 비교하여 반환하는 함수
