@@ -15,16 +15,22 @@ enum AppColor {
 
     // MARK: - Accent (구조/가독성 색상)
 
-    /// 바디 텍스트, 테이블 분리선, 비선택 탭 아이콘 — Deep Brown #4E342E
-    static let accent: UIColor = UIColor(hex: "#4E342E")
+    /// 바디 텍스트, 테이블 분리선, 비선택 탭 아이콘 — 라이트: Deep Brown #4E342E / 다크: Warm Gray #BCAAA4
+    static let accent: UIColor = UIColor { tc in
+        tc.userInterfaceStyle == .dark ? UIColor(hex: "#BCAAA4") : UIColor(hex: "#4E342E")
+    }
 
     // MARK: - Background (배경/테두리 색상)
 
-    /// 앱 전체 배경, 카드 배경 — White #FFFFFF
-    static let background: UIColor = .white
+    /// 앱 전체 배경, 카드 배경 — 라이트: #FFFFFF / 다크: #1C1C1E
+    static let background: UIColor = UIColor { tc in
+        tc.userInterfaceStyle == .dark ? UIColor(hex: "#1C1C1E") : .white
+    }
 
-    /// 필드 테두리, 구분 영역 배경 — Light Gray #F5F5F5
-    static let backgroundSecondary: UIColor = UIColor(hex: "#F5F5F5")
+    /// 필드 테두리, 구분 영역 배경 — 라이트: #F5F5F5 / 다크: #2C2C2E
+    static let backgroundSecondary: UIColor = UIColor { tc in
+        tc.userInterfaceStyle == .dark ? UIColor(hex: "#2C2C2E") : UIColor(hex: "#F5F5F5")
+    }
 
     // MARK: - Status (상태 표시 색상)
 
