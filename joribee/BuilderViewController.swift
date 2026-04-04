@@ -35,6 +35,8 @@ class BuilderViewController: UIViewController {
     private var sectionTitles: [String] = []
     // 용도 선택 단계의 카테고리 순서
     private let purposeCategories: [BuildCategory] = [.office, .budgetGaming, .highEndGaming, .videoEditing, .design, .streaming, .whiteBuild]
+    // 현재 API 로드 요청의 토큰 (단계 이동 시 이전 콜백을 무시하기 위한 식별자)
+    private var currentLoadToken: UUID = UUID()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,6 +70,10 @@ class BuilderViewController: UIViewController {
 
     // 현재 단계에 맞는 옵션 목록을 로드하는 함수 (API 우선, 실패 시 샘플 데이터 폴백)
     private func loadOptionsForCurrentStep() {
+        // 단계 이동 시 이전 API 콜백을 무효화하고 로딩 인디케이터를 제거
+        currentLoadToken = UUID()
+        showLoading(false)
+
         guard let category = builderState.selectedCategory else {
             if builderState.currentStep == .purpose {
                 loadPurposeOptions()
@@ -109,20 +115,22 @@ class BuilderViewController: UIViewController {
 
     // 여러 부품 카테고리를 순서대로 API에서 가져와 currentOptions에 설정하는 함수
     private func loadWithAPI(categories: [ComponentCategory], purpose: BuildCategory) {
+        let token = currentLoadToken
         currentOptions = Array(repeating: [], count: categories.count)
         optionsTableView.reloadData()
         showLoading(true)
-        fetchNextCategory(categories: categories, purpose: purpose, results: [], index: 0)
+        fetchNextCategory(categories: categories, purpose: purpose, results: [], index: 0, token: token)
     }
 
     // 카테고리 목록을 순서대로 하나씩 API 요청하는 재귀 함수 (실패 시 샘플 데이터 폴백)
     private func fetchNextCategory(categories: [ComponentCategory], purpose: BuildCategory,
-                                   results: [[ComponentOption]], index: Int) {
+                                   results: [[ComponentOption]], index: Int, token: UUID) {
         guard index < categories.count else {
             DispatchQueue.main.async { [weak self] in
-                self?.currentOptions = results
-                self?.showLoading(false)
-                self?.optionsTableView.reloadData()
+                guard let self = self, self.currentLoadToken == token else { return }
+                self.currentOptions = results
+                self.showLoading(false)
+                self.optionsTableView.reloadData()
             }
             return
         }
@@ -146,7 +154,7 @@ class BuilderViewController: UIViewController {
                 options = BuilderSampleData.fallback(for: componentCategory, purpose: purpose)
             }
             self.fetchNextCategory(categories: categories, purpose: purpose,
-                                   results: results + [options], index: index + 1)
+                                   results: results + [options], index: index + 1, token: token)
         }
     }
 
