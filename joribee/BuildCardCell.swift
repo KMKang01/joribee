@@ -112,13 +112,31 @@ class BuildCardCell: UICollectionViewCell {
     private func setupCellStyle() {
         contentView.backgroundColor = .systemBackground
         contentView.layer.cornerRadius = 12
+        contentView.layer.borderWidth = 1
         contentView.clipsToBounds = true
 
-        layer.shadowColor = UIColor.black.cgColor
+        updateDynamicColors()
         layer.shadowOpacity = 0.1
         layer.shadowOffset = CGSize(width: 0, height: 2)
         layer.shadowRadius = 8
         layer.masksToBounds = false
+    }
+
+    // 다크모드 전환 시 색상 속성을 갱신하는 함수
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+            updateDynamicColors()
+        }
+    }
+
+    // 현재 인터페이스 스타일에 맞게 그림자·테두리 색상을 적용하는 함수
+    private func updateDynamicColors() {
+        let isDark = traitCollection.userInterfaceStyle == .dark
+        layer.shadowColor = isDark ? UIColor.white.cgColor : UIColor.black.cgColor
+        contentView.layer.borderColor = isDark
+            ? UIColor.systemGray3.cgColor
+            : UIColor.clear.cgColor
     }
 
     // 서브뷰를 contentView에 추가하는 함수
