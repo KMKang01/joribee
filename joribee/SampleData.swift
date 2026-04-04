@@ -123,6 +123,24 @@ struct SampleData {
                 ],
                 likeCount: 275,
                 createdDate: dateFormatter.date(from: "2026-03-16")!
+            ),
+            Build(
+                id: UUID(),
+                title: "디자인·3D 렌더링 워크스테이션",
+                imageName: "pc_design_3d",
+                category: .design,
+                components: [
+                    Component(category: .cpu, name: "AMD Ryzen 9 7950X", price: 579000),
+                    Component(category: .gpu, name: "RTX 4080 Super 16GB", price: 1090000),
+                    Component(category: .ram, name: "DDR5 32GB x2", price: 298000),
+                    Component(category: .storage, name: "NVMe SSD 2TB", price: 179000),
+                    Component(category: .motherboard, name: "X670E Taichi", price: 359000),
+                    Component(category: .power, name: "1000W 80+ Platinum", price: 179000),
+                    Component(category: .cooler, name: "NZXT Kraken Z73 360mm", price: 189000),
+                    Component(category: .pcCase, name: "Fractal Torrent", price: 179000)
+                ],
+                likeCount: 193,
+                createdDate: dateFormatter.date(from: "2026-03-15")!
             )
         ]
 
