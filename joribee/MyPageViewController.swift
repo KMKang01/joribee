@@ -14,12 +14,13 @@ class MyPageViewController: UIViewController {
     @IBOutlet weak var myPageTableView: UITableView!
 
     // 섹션 제목 목록
-    private let sectionTitles = ["프로필", "나의 선호", "활동", "앱 정보"]
+    private let sectionTitles = ["프로필", "나의 선호", "활동", "화면", "앱 정보"]
     // 각 섹션별 행 제목 목록
     private let rowTitles = [
         ["닉네임"],
         ["선호 용도", "예산 범위"],
         ["저장된 견적"],
+        ["다크모드"],
         ["앱 버전", "오픈소스 라이선스"]
     ]
 
@@ -39,6 +40,12 @@ class MyPageViewController: UIViewController {
     private var budgetRangeIndex: Int {
         get { min(UserDefaults.standard.integer(forKey: "budgetRangeIndex"), budgetOptions.count - 1) }
         set { UserDefaults.standard.set(newValue, forKey: "budgetRangeIndex") }
+    }
+
+    // 다크모드 활성화 여부 (UserDefaults 저장)
+    private var isDarkMode: Bool {
+        get { UserDefaults.standard.bool(forKey: "isDarkMode") }
+        set { UserDefaults.standard.set(newValue, forKey: "isDarkMode") }
     }
 
     // 선호 용도 선택지 목록
@@ -152,10 +159,16 @@ extension MyPageViewController: UITableViewDataSource {
             cell.accessoryType = .none
             cell.selectionStyle = .none
         case (3, 0):
+            let toggle = UISwitch()
+            toggle.isOn = isDarkMode
+            toggle.addTarget(self, action: #selector(darkModeSwitchChanged(_:)), for: .valueChanged)
+            cell.accessoryView = toggle
+            cell.selectionStyle = .none
+        case (4, 0):
             cell.detailTextLabel?.text = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
             cell.accessoryType = .none
             cell.selectionStyle = .none
-        case (3, 1):
+        case (4, 1):
             cell.accessoryType = .disclosureIndicator
         default:
             break
@@ -179,11 +192,17 @@ extension MyPageViewController: UITableViewDelegate {
             showCategoryPicker()
         case (1, 1):
             showBudgetPicker()
-        case (3, 1):
+        case (4, 1):
             showLicenseInfo()
         default:
             break
         }
+    }
+
+    // 다크모드 스위치 토글 시 앱 전체 인터페이스 스타일을 변경하는 함수
+    @objc private func darkModeSwitchChanged(_ sender: UISwitch) {
+        isDarkMode = sender.isOn
+        view.window?.overrideUserInterfaceStyle = sender.isOn ? .dark : .unspecified
     }
 
     // 오픈소스 라이선스 정보를 표시하는 함수
