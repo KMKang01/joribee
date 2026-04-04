@@ -18,6 +18,10 @@ class ExploreViewController: UIViewController {
     private let categories: [String] = ["전체", "가성비 게이밍", "고사양 게이밍", "4K 영상 편집", "사무용", "디자인/3D", "스트리밍", "화이트 감성"]
     // 현재 선택된 카테고리 인덱스
     private var selectedCategoryIndex: Int = 0
+    // 현재 검색어
+    private var searchText: String = ""
+    // 네비게이션 바에 내장되는 검색 컨트롤러
+    private let searchController = UISearchController(searchResultsController: nil)
 
     // 상단 카테고리 필터용 컬렉션뷰 (Storyboard 연결)
     @IBOutlet weak var categoryCollectionView: UICollectionView!
@@ -27,7 +31,18 @@ class ExploreViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionViews()
+        setupSearchController()
         loadSampleData()
+    }
+
+    // 네비게이션 바 검색 컨트롤러를 설정하는 함수
+    private func setupSearchController() {
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "제목, 카테고리, CPU·GPU 검색"
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = true
+        definesPresentationContext = true
     }
 
     // 컬렉션뷰의 delegate, dataSource 및 셀 등록을 설정하는 함수
@@ -62,16 +77,30 @@ class ExploreViewController: UIViewController {
     // 선택된 카테고리에 따라 견적 목록을 필터링하는 함수
     private func filterBuilds(by categoryIndex: Int) {
         selectedCategoryIndex = categoryIndex
+        applyFilters()
+        categoryCollectionView.reloadData()
+    }
 
-        if categoryIndex == 0 {
-            filteredBuilds = allBuilds
-        } else {
-            let selectedCategory = categories[categoryIndex]
-            filteredBuilds = allBuilds.filter { $0.category.rawValue == selectedCategory }
+    // 카테고리 필터와 검색어를 동시에 적용하는 함수
+    private func applyFilters() {
+        var result = allBuilds
+
+        if selectedCategoryIndex != 0 {
+            let selectedCategory = categories[selectedCategoryIndex]
+            result = result.filter { $0.category.rawValue == selectedCategory }
         }
 
+        if !searchText.isEmpty {
+            result = result.filter { build in
+                build.title.localizedCaseInsensitiveContains(searchText) ||
+                build.category.rawValue.localizedCaseInsensitiveContains(searchText) ||
+                (build.cpuName?.localizedCaseInsensitiveContains(searchText) ?? false) ||
+                (build.gpuName?.localizedCaseInsensitiveContains(searchText) ?? false)
+            }
+        }
+
+        filteredBuilds = result
         buildCollectionView.reloadData()
-        categoryCollectionView.reloadData()
     }
 }
 
@@ -114,6 +143,16 @@ extension ExploreViewController: UICollectionViewDelegate {
             detailVC.build = selectedBuild
             navigationController?.pushViewController(detailVC, animated: true)
         }
+    }
+}
+
+// MARK: - UISearchResultsUpdating
+extension ExploreViewController: UISearchResultsUpdating {
+
+    // 검색어 변경 시 필터를 재적용하는 함수
+    func updateSearchResults(for searchController: UISearchController) {
+        searchText = searchController.searchBar.text ?? ""
+        applyFilters()
     }
 }
 
