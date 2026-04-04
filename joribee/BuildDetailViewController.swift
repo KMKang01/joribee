@@ -160,12 +160,13 @@ class BuildDetailViewController: UIViewController {
             guard let self = self, let build = self.build else { return }
             // 빌더 탭의 NavigationController에서 BuilderViewController를 찾아 데이터 전달
             if let tabBar = self.tabBarController,
-               let navController = tabBar.viewControllers?[1] as? UINavigationController,
-               let builderVC = navController.viewControllers.first as? BuilderViewController {
+               let navController = tabBar.viewControllers?.compactMap({ $0 as? UINavigationController }).first(where: { $0.viewControllers.first is BuilderViewController }),
+               let builderVC = navController.viewControllers.first as? BuilderViewController,
+               let tabIndex = tabBar.viewControllers?.firstIndex(of: navController) {
                 builderVC.importBuild(build)
                 navController.popToRootViewController(animated: false)
+                tabBar.selectedIndex = tabIndex
             }
-            self.tabBarController?.selectedIndex = 1
         })
         present(alert, animated: true)
     }
