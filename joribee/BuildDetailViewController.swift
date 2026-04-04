@@ -31,6 +31,50 @@ class BuildDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureData()
+        setupLikeButton()
+    }
+
+    // 네비게이션 바 우측에 두 레이어 하트 버튼을 추가하는 함수
+    private func setupLikeButton() {
+        let container = UIView(frame: CGRect(x: 0, y: 0, width: 36, height: 36))
+
+        // 하트 채우기 레이어 (좋아요 시에만 표시)
+        let fillView = UIImageView(image: UIImage(systemName: "heart.fill"))
+        fillView.tintColor = .systemRed
+        fillView.contentMode = .scaleAspectFit
+        fillView.frame = container.bounds
+        fillView.tag = 100
+
+        // 하트 외곽선 레이어 (항상 표시)
+        let outlineView = UIImageView(image: UIImage(systemName: "heart"))
+        outlineView.tintColor = .label
+        outlineView.contentMode = .scaleAspectFit
+        outlineView.frame = container.bounds
+
+        container.addSubview(fillView)
+        container.addSubview(outlineView)
+        container.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(likeButtonTapped)))
+        container.isUserInteractionEnabled = true
+
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: container)
+        updateLikeButton()
+    }
+
+    // 현재 좋아요 상태에 맞게 채우기 레이어 표시 여부를 갱신하는 함수
+    private func updateLikeButton() {
+        guard let build = build,
+              let container = navigationItem.rightBarButtonItem?.customView,
+              let fillView = container.viewWithTag(100) as? UIImageView else { return }
+        fillView.isHidden = !BuildStore.shared.isLiked(build.id)
+    }
+
+    // 하트 버튼 탭 시 좋아요를 토글하고 UI를 갱신하는 함수
+    @objc private func likeButtonTapped() {
+        guard let build = build else { return }
+        BuildStore.shared.toggleLike(buildId: build.id)
+        self.build = BuildStore.shared.savedBuilds.first { $0.id == build.id }
+        likeCountLabel.text = "\(self.build?.likeCount ?? build.likeCount)"
+        updateLikeButton()
     }
 
     // Build 데이터를 각 UI 요소에 바인딩하는 함수

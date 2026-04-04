@@ -75,18 +75,24 @@ class BuildCardCell: UICollectionViewCell {
         return label
     }()
 
-    // 좋아요 버튼 (비선택: 빈 하트, 선택: 채워진 하트)
-    private let likeButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(systemName: "heart"), for: .normal)
-        button.setImage(UIImage(systemName: "heart.fill"), for: .selected)
-        button.tintColor = .systemRed
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
+    // 하트 외곽선 이미지뷰 (항상 표시)
+    private let heartOutlineImageView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(systemName: "heart"))
+        imageView.tintColor = .systemRed
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
     }()
 
-    // 좋아요 버튼 탭 시 실행할 클로저 (ExploreViewController에서 주입)
-    var onLikeTapped: (() -> Void)?
+    // 하트 채우기 이미지뷰 (좋아요 시에만 표시)
+    private let heartFillImageView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(systemName: "heart.fill"))
+        imageView.tintColor = .systemRed
+        imageView.contentMode = .scaleAspectFit
+        imageView.isHidden = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
 
     // 좋아요 수를 표시하는 레이블
     private let likeCountLabel: UILabel = {
@@ -150,9 +156,9 @@ class BuildCardCell: UICollectionViewCell {
         contentView.addSubview(cpuLabel)
         contentView.addSubview(gpuLabel)
         contentView.addSubview(priceLabel)
-        contentView.addSubview(likeButton)
+        contentView.addSubview(heartFillImageView)
+        contentView.addSubview(heartOutlineImageView)
         contentView.addSubview(likeCountLabel)
-        likeButton.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
     }
 
     // 오토레이아웃 제약 조건을 설정하는 함수
@@ -182,12 +188,17 @@ class BuildCardCell: UICollectionViewCell {
             priceLabel.topAnchor.constraint(equalTo: gpuLabel.bottomAnchor, constant: 10),
             priceLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
 
-            likeButton.leadingAnchor.constraint(equalTo: priceLabel.trailingAnchor, constant: 12),
-            likeButton.centerYAnchor.constraint(equalTo: priceLabel.centerYAnchor),
-            likeButton.widthAnchor.constraint(equalToConstant: 22),
-            likeButton.heightAnchor.constraint(equalToConstant: 22),
+            heartFillImageView.leadingAnchor.constraint(equalTo: priceLabel.trailingAnchor, constant: 12),
+            heartFillImageView.centerYAnchor.constraint(equalTo: priceLabel.centerYAnchor),
+            heartFillImageView.widthAnchor.constraint(equalToConstant: 18),
+            heartFillImageView.heightAnchor.constraint(equalToConstant: 18),
 
-            likeCountLabel.leadingAnchor.constraint(equalTo: likeButton.trailingAnchor, constant: 4),
+            heartOutlineImageView.leadingAnchor.constraint(equalTo: heartFillImageView.leadingAnchor),
+            heartOutlineImageView.centerYAnchor.constraint(equalTo: heartFillImageView.centerYAnchor),
+            heartOutlineImageView.widthAnchor.constraint(equalTo: heartFillImageView.widthAnchor),
+            heartOutlineImageView.heightAnchor.constraint(equalTo: heartFillImageView.heightAnchor),
+
+            likeCountLabel.leadingAnchor.constraint(equalTo: heartOutlineImageView.trailingAnchor, constant: 4),
             likeCountLabel.centerYAnchor.constraint(equalTo: priceLabel.centerYAnchor),
             likeCountLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
         ])
@@ -200,7 +211,7 @@ class BuildCardCell: UICollectionViewCell {
         cpuLabel.text = "CPU: \(build.cpuName ?? "-")"
         gpuLabel.text = "GPU: \(build.gpuName ?? "-")"
         likeCountLabel.text = "\(build.likeCount)"
-        likeButton.isSelected = BuildStore.shared.isLiked(build.id)
+        heartFillImageView.isHidden = !BuildStore.shared.isLiked(build.id)
 
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
@@ -210,8 +221,4 @@ class BuildCardCell: UICollectionViewCell {
         thumbnailImageView.image = UIImage(named: build.imageName) ?? UIImage(systemName: "desktopcomputer")
     }
 
-    // 좋아요 버튼 탭 이벤트를 클로저로 전달하는 함수
-    @objc private func likeButtonTapped() {
-        onLikeTapped?()
-    }
 }

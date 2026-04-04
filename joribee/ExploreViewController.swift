@@ -128,13 +128,7 @@ extension ExploreViewController: UICollectionViewDataSource {
         }
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BuildCardCell.identifier, for: indexPath) as! BuildCardCell
-        let build = filteredBuilds[indexPath.item]
-        cell.configure(with: build)
-        cell.onLikeTapped = { [weak self] in
-            guard let self = self else { return }
-            BuildStore.shared.toggleLike(buildId: build.id)
-            self.buildCollectionView.reloadItems(at: [indexPath])
-        }
+        cell.configure(with: filteredBuilds[indexPath.item])
         return cell
     }
 }
