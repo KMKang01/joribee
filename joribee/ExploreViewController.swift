@@ -32,7 +32,6 @@ class ExploreViewController: UIViewController {
         super.viewDidLoad()
         setupCollectionViews()
         setupSearchController()
-        loadSampleData()
     }
 
     // 네비게이션 바 검색 컨트롤러를 설정하는 함수
@@ -67,11 +66,15 @@ class ExploreViewController: UIViewController {
         }
     }
 
-    // 샘플 데이터를 로드하고 컬렉션뷰에 반영하는 함수
-    private func loadSampleData() {
-        allBuilds = SampleData.createSampleBuilds()
-        filteredBuilds = allBuilds
-        buildCollectionView.reloadData()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        loadBuilds()
+    }
+
+    // BuildStore에서 견적을 로드하고 컬렉션뷰에 반영하는 함수 (좋아요 내림차순)
+    private func loadBuilds() {
+        allBuilds = BuildStore.shared.savedBuilds.sorted { $0.likeCount > $1.likeCount }
+        applyFilters()
     }
 
     // 선택된 카테고리에 따라 견적 목록을 필터링하는 함수
@@ -125,7 +128,13 @@ extension ExploreViewController: UICollectionViewDataSource {
         }
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BuildCardCell.identifier, for: indexPath) as! BuildCardCell
-        cell.configure(with: filteredBuilds[indexPath.item])
+        let build = filteredBuilds[indexPath.item]
+        cell.configure(with: build)
+        cell.onLikeTapped = { [weak self] in
+            guard let self = self else { return }
+            BuildStore.shared.toggleLike(buildId: build.id)
+            self.buildCollectionView.reloadItems(at: [indexPath])
+        }
         return cell
     }
 }

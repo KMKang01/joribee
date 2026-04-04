@@ -60,6 +60,37 @@ class BuildStore {
         saveToFile()
     }
 
+    // 사용자가 좋아요한 견적 ID 목록 (UserDefaults 저장)
+    private var likedBuildIds: Set<UUID> {
+        get {
+            let strings = UserDefaults.standard.stringArray(forKey: "likedBuildIds") ?? []
+            return Set(strings.compactMap { UUID(uuidString: $0) })
+        }
+        set {
+            UserDefaults.standard.set(newValue.map { $0.uuidString }, forKey: "likedBuildIds")
+        }
+    }
+
+    // 특정 견적의 좋아요 여부를 반환하는 함수
+    func isLiked(_ buildId: UUID) -> Bool {
+        return likedBuildIds.contains(buildId)
+    }
+
+    // 특정 견적의 좋아요를 토글하고 likeCount를 갱신하는 함수
+    func toggleLike(buildId: UUID) {
+        guard let index = savedBuilds.firstIndex(where: { $0.id == buildId }) else { return }
+        var ids = likedBuildIds
+        if ids.contains(buildId) {
+            ids.remove(buildId)
+            savedBuilds[index].likeCount = max(0, savedBuilds[index].likeCount - 1)
+        } else {
+            ids.insert(buildId)
+            savedBuilds[index].likeCount += 1
+        }
+        likedBuildIds = ids
+        saveToFile()
+    }
+
     // 두 견적의 부품별 가격 차이를 비교하여 반환하는 함수
     func compareBuilds(_ buildA: Build, _ buildB: Build) -> [ComponentComparison] {
         var comparisons: [ComponentComparison] = []
