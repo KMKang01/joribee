@@ -154,7 +154,7 @@ extension HistoryViewController: UITableViewDelegate {
             } else if selectedIndices.count < 2 {
                 selectedIndices.insert(indexPath.row)
             }
-            tableView.reloadData()
+            tableView.reloadRows(at: [indexPath], with: .none)
             updateCompareButton()
         } else {
             let build = builds[indexPath.row]
