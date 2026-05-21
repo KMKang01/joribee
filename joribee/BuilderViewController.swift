@@ -280,7 +280,8 @@ class BuilderViewController: UIViewController {
                 category: self.builderState.selectedCategory ?? .office,
                 components: components,
                 likeCount: 0,
-                createdDate: Date()
+                createdDate: Date(),
+                userNickname: UserDefaults.standard.string(forKey: "userNickname") ?? "사용자"
             )
             BuildStore.shared.saveBuild(build)
             self.builderState.reset()

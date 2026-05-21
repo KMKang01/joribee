@@ -56,6 +56,8 @@ struct Build: Codable {
     var likeCount: Int
     // 견적 생성 날짜
     let createdDate: Date
+    // 견적 작성자
+    let userNickname: String
 
     // 전체 부품 가격 합계를 계산하는 속성
     var totalPrice: Int {
@@ -70,5 +72,48 @@ struct Build: Codable {
     // GPU 부품 이름을 반환하는 속성
     var gpuName: String? {
         return components.first { $0.category == .gpu }?.name
+    }
+
+    init(
+        id: UUID,
+        title: String,
+        imageName: String,
+        category: BuildCategory,
+        components: [Component],
+        likeCount: Int,
+        createdDate: Date,
+        userNickname: String = "사용자"
+    ) {
+        self.id = id
+        self.title = title
+        self.imageName = imageName
+        self.category = category
+        self.components = components
+        self.likeCount = likeCount
+        self.createdDate = createdDate
+        self.userNickname = userNickname
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case id
+        case title
+        case imageName
+        case category
+        case components
+        case likeCount
+        case createdDate
+        case userNickname
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(UUID.self, forKey: .id)
+        title = try container.decode(String.self, forKey: .title)
+        imageName = try container.decode(String.self, forKey: .imageName)
+        category = try container.decode(BuildCategory.self, forKey: .category)
+        components = try container.decode([Component].self, forKey: .components)
+        likeCount = try container.decode(Int.self, forKey: .likeCount)
+        createdDate = try container.decode(Date.self, forKey: .createdDate)
+        userNickname = try container.decodeIfPresent(String.self, forKey: .userNickname) ?? "사용자"
     }
 }
